@@ -1,7 +1,7 @@
 HC-Sticky
 =========
 
-> version: 1.2
+> v.1.2
 
 
 Cross-browser jQuery plugin that makes any element attached to the page and always visible while you scroll.
