@@ -339,14 +339,20 @@
 
 
 				// select container ;)
-				var $container = options.stickTo
-					? options.stickTo == 'document' || options.stickTo instanceof HTMLDocument
-						? $document
-						: typeof options.stickTo == 'string'
-							? $(options.stickTo)
-							: options.stickTo
-					: $wrapper.parent();
-
+				var $container;
+		                var stickto_is_document = false;
+		                if (options.stickTo) {
+		                    if (typeof options.stickTo == 'string' && options.stickTo !== 'document') {
+		                        $container = $(options.stickTo);
+		                    } else if (options.stickTo == 'document' || options.stickTo instanceof HTMLDocument) {
+		                        $container = $document;
+		                        stickto_is_document = true;
+		                    } else {
+		                        $container = options.stickTo;
+		                    }
+		                } else {
+		                    $container = $wrapper.parent();
+		                }
 
 				// clear sticky styles
 				$this.css({
@@ -404,7 +410,7 @@
 
 					var top_spacing = (options.innerSticker) ? $(options.innerSticker).position().top : ((options.innerTop) ? options.innerTop : 0),
 						wrapper_inner_top = $wrapper.offset().top,
-						bottom_limit = $container.height() - options.bottomEnd + (options.stickTo == 'document' || options.stickTo instanceof HTMLDocument ? 0 : wrapper_inner_top),
+						bottom_limit = $container.height() - options.bottomEnd + (stickto_is_document ? 0 : wrapper_inner_top),
 						top_limit = $wrapper.offset().top - options.top + top_spacing,
 						this_height = $this.outerHeight(true) + options.bottom,
 						window_height = $window.height(),
