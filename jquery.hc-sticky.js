@@ -342,7 +342,7 @@
 				var $container;
 		                var stickto_is_document = false;
 		                if (options.stickTo) {
-		                    if (typeof options.stickTo == 'string') {
+		                    if (typeof options.stickTo == 'string' && options.stickTo !== 'document') {
 		                        $container = $(options.stickTo);
 		                    } else if (options.stickTo == 'document' || options.stickTo instanceof HTMLDocument) {
 		                        $container = $document;
