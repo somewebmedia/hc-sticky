@@ -1,6 +1,6 @@
 // jQuery HC-Sticky
 // =============
-// Version: 1.2.1
+// Version: 1.2.2
 // Copyright: Some Web Media
 // Author: Some Web Guy
 // Author URL: http://twitter.com/some_web_guy
@@ -294,15 +294,18 @@
 				$this.data('hcStickyInit', true);
 
 
+				// check if referring element is document
+				// IE9 don't recognize HTMLDocument so we compare to Document
+				var stickTo_document = options.stickTo == 'document' || (typeof options.stickTo == 'object' && options.stickTo instanceof (typeof HTMLDocument != 'undefined' ? HTMLDocument : Document)) ? true : false;
+
 				// select container ;)
 				var $container = options.stickTo
-					? options.stickTo == 'document' || options.stickTo instanceof HTMLDocument
+					? stickTo_document
 						? $document
 						: typeof options.stickTo == 'string'
 							? $(options.stickTo)
 							: options.stickTo
 					: $wrapper.parent();
-
 
 				// clear sticky styles
 				$this.css({
@@ -360,7 +363,7 @@
 
 					var top_spacing = (options.innerSticker) ? $(options.innerSticker).position().top : ((options.innerTop) ? options.innerTop : 0),
 						wrapper_inner_top = $wrapper.offset().top,
-						bottom_limit = $container.height() - options.bottomEnd + (options.stickTo == 'document' || options.stickTo instanceof HTMLDocument ? 0 : wrapper_inner_top),
+						bottom_limit = $container.height() - options.bottomEnd + (stickTo_document ? 0 : wrapper_inner_top),
 						top_limit = $wrapper.offset().top - options.top + top_spacing,
 						this_height = $this.outerHeight(true) + options.bottom,
 						window_height = $window.height(),
