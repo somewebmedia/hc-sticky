@@ -1,70 +1,6 @@
-// jQuery HC-PluginOptions
-// =============
-// Version: 1.0
-// Copyright: Some Web Media
-// Author: Some Web Guy
-// Author URL: http://twitter.com/some_web_guy
-// Website: http://someweblog.com/
-// License: Released under the MIT License www.opensource.org/licenses/mit-license.php
-
-(function($, undefined) {
-	"use strict";
-
-	$.fn.extend({
-
-		pluginOptions: function(pluginName, defaultOptions, userOptions, commands) {
-
-			// create object to store data
-			if (!this.data(pluginName)) this.data(pluginName, {});
-
-			// return options
-			if (pluginName && typeof defaultOptions == 'undefined') return this.data(pluginName).options;
-
-			// update
-			userOptions = userOptions || (defaultOptions || {});
-
-			if (typeof userOptions == 'object' || userOptions === undefined) {
-
-				// options
-				return this.each(function(){
-					var $this = $(this);
-
-					if (!$this.data(pluginName).options) {
-						// init our options and attach to element
-						$this.data(pluginName, {options: $.extend(defaultOptions, userOptions || {})});
-						// attach commands if any
-						if (commands) {
-							$this.data(pluginName).commands = commands;
-						}
-					} else {
-						// update existing options
-						$this.data(pluginName, $.extend($this.data(pluginName), {options: $.extend($this.data(pluginName).options, userOptions || {})}));
-					}
-				});
-
-			} else if (typeof userOptions == 'string') {
-
-				return this.each(function(){
-					$(this).data(pluginName).commands[userOptions].call(this);
-				});
-
-			} else {
-
-				return this;
-
-			}
-
-		}
-
-	});
-
-})(jQuery);
-
-
-
 // jQuery HC-Sticky
 // =============
-// Version: 1.2
+// Version: 1.2.1
 // Copyright: Some Web Media
 // Author: Some Web Guy
 // Author URL: http://twitter.com/some_web_guy
@@ -189,7 +125,7 @@
 				onStart: $.noop,
 				onStop: $.noop,
 				on: true,
-				fn: $.noop // used only by the plugin
+				fn: null // used only by the plugin
 			}, options || {}, {
 				reinit: function(){
 					// just call itself again
@@ -218,7 +154,7 @@
 							options = $this.pluginOptions('hcSticky'),
 							$wrapper = $this.parent('.' + options.wrapperClassName);
 
-						// reset position
+						// clear position
 						$this.css({
 							position: 'relative',
 							top: 'auto',
@@ -239,6 +175,26 @@
 							}
 						}).hcSticky();
 					});
+				},
+				destroy: function(){
+					var $this = $(this),
+						options = $this.pluginOptions('hcSticky'),
+						$wrapper = $this.parent('.' + options.wrapperClassName);
+
+					// reset position to original
+					$this.removeData('hcStickyInit').css({
+						position: $wrapper.css('position'),
+						top: $wrapper.css('top'),
+						bottom: $wrapper.css('bottom'),
+						left: $wrapper.css('left'),
+						right: $wrapper.css('right')
+					}).removeClass(options.className);
+
+					// remove events
+					$window.off('resize', options.fn.resize).off('scroll', options.fn.scroll);
+
+					// destroy wrapper
+					$this.unwrap();
 				}
 			});
 
@@ -365,7 +321,7 @@
 				});
 
 				// functions for attachiung and detaching sticky
-				var setFixed = function(args) {
+				var _setFixed = function(args) {
 						// check if already floating
 						if ($this.hasClass(options.className)) return;
 
@@ -380,7 +336,7 @@
 						// start event
 						options.onStart.apply(this);
 					},
-					reset = function(args) {
+					_reset = function(args) {
 						// check if reseted
 						if (!$this.hasClass(options.className)) return;
 
@@ -396,8 +352,8 @@
 						options.onStop.apply(this);
 					};
 
-				// sticky function
-				var fn = function(init) {
+				// sticky scroll function
+				var onScroll = function(init) {
 
 					// check if we need to run sticky
 					if (!options.on || $this.outerHeight(true) >= $container.height()) return;
@@ -431,7 +387,7 @@
 							if (options.remember.offsetTop > position_top) {
 								// slide up
 								if (offset_top <= position_top) {
-									setFixed({
+									_setFixed({
 										top: options.top - top_spacing
 									});
 									options.remember = false;
@@ -439,7 +395,7 @@
 							} else {
 								// slide down
 								if (offset_top >= position_top) {
-									setFixed({
+									_setFixed({
 										top: options.top - top_spacing
 									});
 									options.remember = false;
@@ -458,7 +414,7 @@
 
 						if (bottom_limit + options.bottom - (options.followScroll && window_height < this_height ? 0 : options.top) <= offset_top + this_height - top_spacing - ((this_height - top_spacing > window_height - (top_limit - top_spacing) && options.followScroll) ? (((bottom_distance = this_height - window_height - top_spacing) > 0) ? bottom_distance : 0) : 0)) {
 							// bottom reached end
-							reset({
+							_reset({
 								top: bottom_limit - this_height + options.bottom - wrapper_inner_top
 							});
 						} else if (this_height - top_spacing > window_height && options.followScroll) {
@@ -467,13 +423,13 @@
 
 								if (getScroll.direction == 'down') {
 									// scroll down
-									setFixed({
+									_setFixed({
 										top: window_height - this_height
 									});
 								} else {
 									// scroll up
 									if (this_window_top < 0 && $this.css('position') == 'fixed') {
-										reset({
+										_reset({
 											top: this_document_top - (top_limit + options.top - top_spacing) - getScroll.distanceY
 										});
 									}
@@ -483,12 +439,12 @@
 
 								if (getScroll.direction == 'up' && this_document_top >= offset_top + options.top - top_spacing) {
 									// scroll up
-									setFixed({
+									_setFixed({
 										top: options.top - top_spacing
 									});
 								} else if (getScroll.direction == 'down' && this_document_top + this_height > window_height && $this.css('position') == 'fixed') {
 									// scroll down
-									reset({
+									_reset({
 										top: this_document_top - (top_limit + options.top - top_spacing) - getScroll.distanceY
 									});
 								}
@@ -496,13 +452,13 @@
 							}
 						} else {
 							// starting (top) fixed position
-							setFixed({
+							_setFixed({
 								top: options.top - top_spacing
 							});
 						}
 					} else {
 						// reset
-						reset();
+						_reset();
 					}
 
 					// just in case someone set "top" larger than elements style top
@@ -511,8 +467,6 @@
 					}
 
 				};
-				// set scroll function
-				$this.pluginOptions('hcSticky', {fn: fn});
 
 
 				// store resize data in case responsive is on
@@ -596,7 +550,13 @@
 						$this.css('width', this_w);
 					}
 				};
-				$window.on('resize', onResize);
+
+
+				// remember scroll and resize functions so we can attach and detach them
+				$this.pluginOptions('hcSticky', {fn: {
+					scroll: onScroll,
+					resize: onResize
+				}});
 
 
 				// check for off resolutions
@@ -634,23 +594,27 @@
 				checkResolutions();
 
 
-				// attaching sticky to scroll event
+				// attach resize function to event
+				$window.on('resize', onResize);
+
+
+				// attaching scroll function to event
 				var attachScroll = function(){
 					// check if element height is bigger than the content
 					if ($this.outerHeight(true) < $container.height()) {
 						var isAttached = false;
 						if ($._data(window, 'events').scroll != undefined) {
 							$.each($._data(window, 'events').scroll, function(i, f){
-								if (f.handler == options.fn) {
+								if (f.handler == options.fn.scroll) {
 									isAttached = true;
 								}
 							});
 						}
 						if (!isAttached) {
 							// run it once to disable glitching
-							options.fn(true);
-							// attach function to scroll event
-							$window.on('scroll', options.fn);
+							options.fn.scroll(true);
+							// attach function to scroll event only once
+							$window.on('scroll', options.fn.scroll);
 						}
 					}
 				};
@@ -661,3 +625,67 @@
 	});
 
 })(jQuery, this);
+
+
+
+// jQuery HC-PluginOptions
+// =============
+// Version: 1.0
+// Copyright: Some Web Media
+// Author: Some Web Guy
+// Author URL: http://twitter.com/some_web_guy
+// Website: http://someweblog.com/
+// License: Released under the MIT License www.opensource.org/licenses/mit-license.php
+
+(function($, undefined) {
+	"use strict";
+
+	$.fn.extend({
+
+		pluginOptions: function(pluginName, defaultOptions, userOptions, commands) {
+
+			// create object to store data
+			if (!this.data(pluginName)) this.data(pluginName, {});
+
+			// return options
+			if (pluginName && typeof defaultOptions == 'undefined') return this.data(pluginName).options;
+
+			// update
+			userOptions = userOptions || (defaultOptions || {});
+
+			if (typeof userOptions == 'object' || userOptions === undefined) {
+
+				// options
+				return this.each(function(){
+					var $this = $(this);
+
+					if (!$this.data(pluginName).options) {
+						// init our options and attach to element
+						$this.data(pluginName, {options: $.extend(defaultOptions, userOptions || {})});
+						// attach commands if any
+						if (commands) {
+							$this.data(pluginName).commands = commands;
+						}
+					} else {
+						// update existing options
+						$this.data(pluginName, $.extend($this.data(pluginName), {options: $.extend($this.data(pluginName).options, userOptions || {})}));
+					}
+				});
+
+			} else if (typeof userOptions == 'string') {
+
+				return this.each(function(){
+					$(this).data(pluginName).commands[userOptions].call(this);
+				});
+
+			} else {
+
+				return this;
+
+			}
+
+		}
+
+	});
+
+})(jQuery);

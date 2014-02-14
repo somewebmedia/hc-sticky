@@ -1,7 +1,7 @@
 HC-Sticky
 =========
 
-> v.1.2
+> v.1.2.1
 
 
 Cross-browser jQuery plugin that makes any element attached to the page and always visible while you scroll.
@@ -147,5 +147,9 @@ $('#element').hcSticky('stop');
 	<tr>
 		<td><strong>reinit</strong></td>
 		<td>Recalculates sticky size. Useful after altering DOM elements inside sticky.</td>
+	</tr>
+	<tr>
+		<td><strong>destroy</strong></td>
+		<td>Completely destroys sticky and reverts element to original state.</td>
 	</tr>
 </table>
