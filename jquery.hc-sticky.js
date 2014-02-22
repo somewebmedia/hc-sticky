@@ -1,17 +1,18 @@
 // jQuery HC-Sticky
 // =============
-// Version: 1.2.2
+// Version: 1.2.3
 // Copyright: Some Web Media
 // Author: Some Web Guy
 // Author URL: http://twitter.com/some_web_guy
 // Website: http://someweblog.com/
-// Plugin URL: http://someweblog.com/hcsticky-jquery-floating-sticky-plugin/
+// Plugin URL: https://github.com/somewebmedia/hc-sticky
 // License: Released under the MIT License www.opensource.org/licenses/mit-license.php
-// Description: Makes elements on your page float as you scroll
+// Description: Cross-browser jQuery plugin that makes any element attached to the page and always visible while you scroll.
 
 (function($, window, undefined) {
 	"use strict";
 
+	// console.log shortcut
 	var log = function(t){console.log(t)};
 
 	var $window = $(window),
@@ -295,8 +296,7 @@
 
 
 				// check if referring element is document
-				// IE9 don't recognize HTMLDocument so we compare to Document
-				var stickTo_document = options.stickTo == 'document' || (typeof options.stickTo == 'object' && options.stickTo instanceof (typeof HTMLDocument != 'undefined' ? HTMLDocument : Document)) ? true : false;
+				var stickTo_document = options.stickTo && (options.stickTo == 'document' || (options.stickTo.nodeType && options.stickTo.nodeType == 9) || (typeof options.stickTo == 'object' && options.stickTo instanceof (typeof HTMLDocument != 'undefined' ? HTMLDocument : Document))) ? true : false;
 
 				// select container ;)
 				var $container = options.stickTo
@@ -340,15 +340,19 @@
 						options.onStart.apply(this);
 					},
 					_reset = function(args) {
-						// check if reseted
-						if (!$this.hasClass(options.className)) return;
-
-						// reset styles
 						args = args || {};
+						args.position = args.position || 'absolute';
+						args.top = args.top || 0;
+						args.left = args.left || 0;
+
+						// check if we should apply css
+						if (parseInt($this.css('top')) == args.top) return;
+
+						// apply styles
 						$this.css({
-							position: args.position || 'absolute',
-							top: args.top || 0,
-							left: args.left || 0
+							position: args.position,
+							top: args.top,
+							left: args.left
 						}).removeClass(options.className);
 
 						// stop event
@@ -555,7 +559,7 @@
 				};
 
 
-				// remember scroll and resize functions so we can attach and detach them
+				// remember scroll and resize callbacks so we can attach and detach them
 				$this.pluginOptions('hcSticky', {fn: {
 					scroll: onScroll,
 					resize: onResize
