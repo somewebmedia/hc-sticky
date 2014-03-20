@@ -1,6 +1,6 @@
 // jQuery HC-Sticky
 // =============
-// Version: 1.2.3
+// Version: 1.2.4
 // Copyright: Some Web Media
 // Author: Some Web Guy
 // Author URL: http://twitter.com/some_web_guy
@@ -346,7 +346,7 @@
 						args.left = args.left || 0;
 
 						// check if we should apply css
-						if (parseInt($this.css('top')) == args.top) return;
+						if ($this.css('position') != 'fixed' && parseInt($this.css('top')) == args.top) return;
 
 						// apply styles
 						$this.css({
@@ -466,11 +466,6 @@
 					} else {
 						// reset
 						_reset();
-					}
-
-					// just in case someone set "top" larger than elements style top
-					if (init === true) {
-						$this.css('top', ($this.css('position') == 'fixed') ? options.top - top_spacing : 0);
 					}
 
 				};
