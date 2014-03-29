@@ -1,6 +1,6 @@
 // jQuery HC-Sticky
 // =============
-// Version: 1.2.4
+// Version: 1.2.41
 // Copyright: Some Web Media
 // Author: Some Web Guy
 // Author URL: http://twitter.com/some_web_guy
@@ -337,7 +337,7 @@
 						}).addClass(options.className);
 
 						// start event
-						options.onStart.apply(this);
+						options.onStart.apply($this[0]);
 					},
 					_reset = function(args) {
 						args = args || {};
@@ -356,7 +356,7 @@
 						}).removeClass(options.className);
 
 						// stop event
-						options.onStop.apply(this);
+						options.onStop.apply($this[0]);
 					};
 
 				// sticky scroll function
