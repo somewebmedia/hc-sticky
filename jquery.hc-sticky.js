@@ -1,6 +1,6 @@
 // jQuery HC-Sticky
 // =============
-// Version: 1.2.42
+// Version: 1.2.43
 // Copyright: Some Web Media
 // Author: Some Web Guy
 // Author URL: http://twitter.com/some_web_guy
@@ -487,6 +487,9 @@
 					// check for off resolutions
 					checkResolutions();
 
+					// check if we need to run sticky
+					if (!options.on) return;
+
 					var setLeft = function(){
 						// set new left position
 						if ($this.css('position') == 'fixed') {
@@ -528,22 +531,18 @@
 						if (resize_timeout) {
 							clearTimeout(resize_timeout);
 						}
-						// timedout destroing of cloned elements
+						// timedout destroing of cloned elements so we don't clone it again and again while resizing the window
 						resize_timeout = setTimeout(function() {
 							// clear timeout id
 							resize_timeout = false;
 							// destroy cloned element
 							$resize_clone.remove();
 							$resize_clone = false;
-
-							// set new left position
-							setLeft();
-
-						}, 100);
-					} else {
-						// set new left position
-						setLeft();
+						}, 250);
 					}
+
+					// set new left position
+					setLeft();
 
 					// recalculate inner element width (maybe original width was in %)
 					if ($this.outerWidth(true) != $wrapper.width()) {
