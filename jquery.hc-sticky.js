@@ -367,7 +367,7 @@
 				var onScroll = function(init) {
 
 					// check if we need to run sticky
-					if (!options.on || $this.outerHeight(true) >= $container.height()) return;
+					if (!options.on || !$this.is(':visible') || $this.outerHeight(true) >= $container.height()) return;
 
 					var top_spacing = (options.innerSticker) ? $(options.innerSticker).position().top : ((options.innerTop) ? options.innerTop : 0),
 						wrapper_inner_top = $wrapper.offset().top,
