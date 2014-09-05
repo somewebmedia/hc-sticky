@@ -605,22 +605,19 @@
 
 				// attaching scroll function to event
 				var attachScroll = function(){
-					// check if element height is bigger than the content
-					if ($this.outerHeight(true) < $container.height()) {
-						var isAttached = false;
-						if ($._data(window, 'events').scroll != undefined) {
-							$.each($._data(window, 'events').scroll, function(i, f){
-								if (f.handler == options.fn.scroll) {
-									isAttached = true;
-								}
-							});
-						}
-						if (!isAttached) {
-							// run it once to disable glitching
-							options.fn.scroll(true);
-							// attach function to scroll event only once
-							$window.on('scroll', options.fn.scroll);
-						}
+					var isAttached = false;
+					if ($._data(window, 'events').scroll != undefined) {
+						$.each($._data(window, 'events').scroll, function(i, f){
+							if (f.handler == options.fn.scroll) {
+								isAttached = true;
+							}
+						});
+					}
+					if (!isAttached) {
+						// run it once to disable glitching
+						options.fn.scroll(true);
+						// attach function to scroll event only once
+						$window.on('scroll', options.fn.scroll);
 					}
 				};
 				attachScroll();
