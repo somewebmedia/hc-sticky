@@ -367,7 +367,14 @@
 				var onScroll = function(init) {
 
 					// check if we need to run sticky
-					if (!options.on || !$this.is(':visible') || $this.outerHeight(true) >= $container.height()) return;
+	        if (!options.on || !$this.is(':visible')) return;
+
+	        // if the element is the same height or larger than the container then let's reset it so that it returns to the original position
+	        if ($this.outerHeight(true) >= $container.height()) {
+	            _reset();
+
+	            return;
+	        }
 
 					var top_spacing = (options.innerSticker) ? $(options.innerSticker).position().top : ((options.innerTop) ? options.innerTop : 0),
 						wrapper_inner_top = $wrapper.offset().top,
@@ -605,22 +612,19 @@
 
 				// attaching scroll function to event
 				var attachScroll = function(){
-					// check if element height is bigger than the content
-					if ($this.outerHeight(true) < $container.height()) {
-						var isAttached = false;
-						if ($._data(window, 'events').scroll != undefined) {
-							$.each($._data(window, 'events').scroll, function(i, f){
-								if (f.handler == options.fn.scroll) {
-									isAttached = true;
-								}
-							});
-						}
-						if (!isAttached) {
-							// run it once to disable glitching
-							options.fn.scroll(true);
-							// attach function to scroll event only once
-							$window.on('scroll', options.fn.scroll);
-						}
+					var isAttached = false;
+					if ($._data(window, 'events').scroll != undefined) {
+						$.each($._data(window, 'events').scroll, function(i, f){
+							if (f.handler == options.fn.scroll) {
+								isAttached = true;
+							}
+						});
+					}
+					if (!isAttached) {
+						// run it once to disable glitching
+						options.fn.scroll(true);
+						// attach function to scroll event only once
+						$window.on('scroll', options.fn.scroll);
 					}
 				};
 				attachScroll();
