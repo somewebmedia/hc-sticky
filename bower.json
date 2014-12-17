@@ -1,0 +1,28 @@
+{
+  "name": "hc-sticky",
+  "version": "1.2.43",
+  "homepage": "https://github.com/somewebmedia/hc-sticky",
+  "authors": [
+    "Some Web Media <somewebmedia@gmail.com>"
+  ],
+  "description": "Cross-browser jQuery plugin that makes any element attached to the page and always visible while you scroll.",
+  "main": "jquery.hc-sticky.js",
+  "keywords": [
+    "stick",
+    "scroll",
+    "sticky",
+    "box",
+    "menu"
+  ],
+  "dependencies": {
+    "jquery": ">=1.10.2"
+  },
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
