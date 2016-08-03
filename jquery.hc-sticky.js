@@ -584,13 +584,13 @@
 						$.each(options.offResolutions, function(i, rez){
 							if (rez < 0) {
 								// below
-								if ($window.width() < rez * -1) {
+								if (window.innerWidth < rez * -1) {
 									isOn = false;
 									$this.hcSticky('off');
 								}
 							} else {
 								// abowe
-								if ($window.width() > rez) {
+								if (window.innerWidth > rez) {
 									isOn = false;
 									$this.hcSticky('off');
 								}
