@@ -50,7 +50,7 @@ HC Sticky has a wide range of options you can set to have a full controll over t
 | *`onStop`* | null | function | Callback function fired when the element stops floating. |
 | *`onBeforeResize`* | null | function | Callback function fired before sticky has been resized (happens after *Window* resize and before sticky reinit). |
 | *`onResize`* | null | function | Callback function fired after sticky has been resized (happens after *Window* resize and sticky reinit). |
-| *`resizeDebounce`* | 10 | int | Limit the rate at which the HC Sticky can fire on window resize. |
+| *`resizeDebounce`* | 100 | int | Limit the rate at which the HC Sticky can fire on window resize. |
 
 
 ## Methods
@@ -72,7 +72,7 @@ Sticky.update({
 |---------|---------|--------------|
 | *`options`* | string | Returns current settings, or a specific setting if you specify it. |
 | *`update`* | object | Updates the settings with the new ones. |
-| *`reinit`* | / | Recalculates sticky size and position. Useful after altering DOM elements inside sticky. |
-| *`detach`* | / | Detaches the HC-Sticky from element, preventing it from running. |
-| *`attach`* | / | Attaches the HC-Sticky back to the element. |
-| *`destroy`* | / | Completely destroys HC-Sticky and reverts element to original state. |
+| *`reinit`* | | Recalculates sticky size and position. Useful after altering DOM elements inside sticky. |
+| *`detach`* | | Detaches the HC-Sticky from element, preventing it from running. |
+| *`attach`* | | Attaches the HC-Sticky back to the element. |
+| *`destroy`* | | Completely destroys HC-Sticky and reverts element to original state. |
