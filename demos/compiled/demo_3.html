@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Multiple Stickies</title>
+  <meta name="description" content="Nice example showing multiple stickies on one page.">
+  <link rel="stylesheet" href="demos.css" type="text/css" media="all">
+  <script type="text/javascript" src="../../dist/hc-sticky.js"></script>
+</head>
+
+<body class="demo_3">
+
+  <main>
+
+    <article>
+      <section>
+        <figure></figure>
+        <div>
+          <p></p>
+          <p></p>
+          <p></p>
+          <p></p>
+          <p></p>
+        </div>
+      </section>
+    </article>
+
+    <article>
+      <section>
+        <figure></figure>
+        <div>
+          <p></p>
+          <p></p>
+          <p></p>
+          <p></p>
+          <p></p>
+        </div>
+      </section>
+    </article>
+
+    <article>
+      <section>
+        <figure></figure>
+        <div>
+          <p></p>
+          <p></p>
+          <p></p>
+          <p></p>
+          <p></p>
+        </div>
+      </section>
+    </article>
+
+    <article>
+      <section>
+        <figure></figure>
+        <div>
+          <p></p>
+          <p></p>
+          <p></p>
+          <p></p>
+          <p></p>
+        </div>
+      </section>
+    </article>
+
+    <article>
+      <section>
+        <figure></figure>
+        <div>
+          <p></p>
+          <p></p>
+          <p></p>
+          <p></p>
+          <p></p>
+        </div>
+      </section>
+    </article>
+
+  </main>
+
+  <script>
+    "use strict";
+
+    var elements = document.getElementsByTagName('figure');
+
+    for (var i = 0; i < elements.length; i++) {
+      new hcSticky(elements[i], {
+        stickTo: elements[i].parentNode,
+        top: 20,
+        bottomEnd: 30
+      });
+    }
+
+  </script>
+
+</body>
+</html>

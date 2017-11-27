@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Default - smaller than window</title>
+  <meta name="description" content="Page with a sidebar that is smaller than window height. Sidebar should stick to the top of the page when scrolled down or up.">
+  <link rel="stylesheet" href="<%= style_path %>" type="text/css" media="all">
+  <script type="text/javascript" src="<%= sticky_path %>"></script>
+</head>
+
+<body class="demo_2">
+
+  <header>
+    <figure></figure>
+    <nav>
+      <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+
+    <article>
+
+      <section>
+        <figure></figure>
+        <div>
+          <p></p>
+          <p></p>
+          <p></p>
+          <p></p>
+          <p></p>
+        </div>
+      </section>
+
+      <section>
+        <figure></figure>
+        <div>
+          <p></p>
+          <p></p>
+          <p></p>
+          <p></p>
+          <p></p>
+        </div>
+      </section>
+
+      <section>
+        <figure></figure>
+        <div>
+          <p></p>
+          <p></p>
+          <p></p>
+          <p></p>
+          <p></p>
+        </div>
+      </section>
+
+      <section>
+        <figure></figure>
+        <div>
+          <p></p>
+          <p></p>
+          <p></p>
+          <p></p>
+          <p></p>
+        </div>
+      </section>
+
+      <section>
+        <figure></figure>
+        <div>
+          <p></p>
+          <p></p>
+          <p></p>
+          <p></p>
+          <p></p>
+        </div>
+      </section>
+
+      <section>
+        <figure></figure>
+        <div>
+          <p></p>
+          <p></p>
+          <p></p>
+          <p></p>
+          <p></p>
+        </div>
+      </section>
+
+    </article>
+
+    <aside>
+
+      <div>
+        <h3></h3>
+        <ul>
+          <li></li>
+          <li></li>
+        </ul>
+      </div>
+
+      <ul>
+        <li></li>
+        <li></li>
+      </ul>
+
+    </aside>
+
+  </main>
+
+  <footer>
+    <span></span>
+    <span></span>
+    <span></span>
+  </footer>
+
+  <script>
+    "use strict";
+
+    var Sticky = new hcSticky('aside', {
+      stickTo: 'main',
+      queries: {
+        980: {
+          disable: true
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>

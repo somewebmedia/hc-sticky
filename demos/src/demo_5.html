@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Inner Sticker not following scroll</title>
+  <meta name="description" content="Use `innerSticker` option to stick at a certain element, and `followScroll:false` so the sidebar doesn't follow the scroll once attached. In this example, sticky will stick to the second box inside the sidebar when you go *down* or *up*.">
+  <link rel="stylesheet" href="<%= style_path %>" type="text/css" media="all">
+  <script type="text/javascript" src="<%= sticky_path %>"></script>
+</head>
+
+<body class="demo_5">
+
+  <header>
+    <figure></figure>
+    <nav>
+      <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+
+    <article>
+
+      <section>
+        <figure></figure>
+        <div>
+          <p></p>
+          <p></p>
+          <p></p>
+          <p></p>
+          <p></p>
+        </div>
+      </section>
+
+      <section>
+        <figure></figure>
+        <div>
+          <p></p>
+          <p></p>
+          <p></p>
+          <p></p>
+          <p></p>
+        </div>
+      </section>
+
+      <section>
+        <figure></figure>
+        <div>
+          <p></p>
+          <p></p>
+          <p></p>
+          <p></p>
+          <p></p>
+        </div>
+      </section>
+
+      <section>
+        <figure></figure>
+        <div>
+          <p></p>
+          <p></p>
+          <p></p>
+          <p></p>
+          <p></p>
+        </div>
+      </section>
+
+      <section>
+        <figure></figure>
+        <div>
+          <p></p>
+          <p></p>
+          <p></p>
+          <p></p>
+          <p></p>
+        </div>
+      </section>
+
+      <section>
+        <figure></figure>
+        <div>
+          <p></p>
+          <p></p>
+          <p></p>
+          <p></p>
+          <p></p>
+        </div>
+      </section>
+
+    </article>
+
+    <aside>
+
+      <div>
+        <h3></h3>
+        <ul>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+      </div>
+
+      <ul id="stickMe">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+
+      <div>
+        <ul>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+      </div>
+
+      <div>
+        <ul>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+      </div>
+
+    </aside>
+
+  </main>
+
+  <footer>
+    <span></span>
+    <span></span>
+    <span></span>
+  </footer>
+
+  <script>
+    "use strict";
+
+    var Sticky = new hcSticky('aside', {
+      stickTo: 'main',
+      innerSticker: '#stickMe',
+      followScroll: false,
+      queries: {
+        980: {
+          disable: true
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>
