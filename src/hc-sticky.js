@@ -60,15 +60,15 @@
       }
 
       // extend options
-      stickyOptions = Helpers.extend({}, defaultOptions, stickyOptions, options);
+      stickyOptions = Object.assign({}, defaultOptions, stickyOptions, options);
     };
 
     const resetOptions = (options) => {
-      stickyOptions = Helpers.extend({}, defaultOptions, options || {});
+      stickyOptions = Object.assign({}, defaultOptions, options || {});
     };
 
     const getOptions = (option) => {
-      return option ? (stickyOptions.option || null) : Helpers.extend({}, stickyOptions);
+      return option ? (stickyOptions.option || null) : Object.assign({}, stickyOptions);
     };
 
     const isDisabled = () => {

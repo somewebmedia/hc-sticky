@@ -1,31 +1,34 @@
 ((hcSticky, window, document) => {
   'use strict';
 
-  // extend objects
-  const extend = function(out) {
-    out = out || {};
+  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
+  if (typeof Object.assign !== 'function') {
+    Object.defineProperty(Object, 'assign', {
+      value: function assign(target, varArgs) {
+        'use strict';
+        if (target == null) {
+          throw new TypeError('Cannot convert undefined or null to object');
+        }
 
-    for (let i = 1; i < arguments.length; i++) {
-      const obj = arguments[i];
+        var to = Object(target);
 
-      if (!obj) {
-        continue;
-      }
+        for (var index = 1; index < arguments.length; index++) {
+          var nextSource = arguments[index];
 
-      for (const key in obj) {
-        if (obj.hasOwnProperty(key)) {
-          if (typeof obj[key] === 'object' && obj[key] !== null && obj[key].constructor === Object) {
-            out[key] = extend(out[key], obj[key]);
-          }
-          else {
-            out[key] = obj[key];
+          if (nextSource != null) {
+            for (var nextKey in nextSource) {
+              if (Object.prototype.hasOwnProperty.call(nextSource, nextKey)) {
+                to[nextKey] = nextSource[nextKey];
+              }
+            }
           }
         }
-      }
-    }
-
-    return out;
-  };
+        return to;
+      },
+      writable: true,
+      configurable: true
+    });
+  }
 
   const isEmptyObject = (obj) => {
     for (const name in obj) {
@@ -65,7 +68,7 @@
       return style ? document.defaultView.getComputedStyle(el, null).getPropertyValue(style) : document.defaultView.getComputedStyle(el, null);
     }
     else if (el.currentStyle) {
-      return style ? el.currentStyle[style.replace(/-\w/g, function(s) {
+      return style ? el.currentStyle[style.replace(/-\w/g, (s) => {
         return s.toUpperCase().replace('-', '');
       })] : el.currentStyle;
     }
@@ -144,7 +147,7 @@
       style = {}; // clear
       for (const prop in currentStyle) {
         if (!isNaN(prop)) {
-          style[currentStyle[prop].replace(/-\w/g, function(s) {
+          style[currentStyle[prop].replace(/-\w/g, (s) => {
             return s.toUpperCase().replace('-', '');
           })] = currentStyle.getPropertyValue(currentStyle[prop]);
         }
@@ -179,7 +182,6 @@
   };
 
   hcSticky.Helpers = {};
-  hcSticky.Helpers.extend = extend;
   hcSticky.Helpers.isEmptyObject = isEmptyObject;
   hcSticky.Helpers.debounce = debounce;
   hcSticky.Helpers.hasClass = hasClass;
