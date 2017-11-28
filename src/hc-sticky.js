@@ -94,6 +94,7 @@
         else {
           const queries_arr = [];
 
+          // convert to array so we can reverse loop it
           for (const b in stickyOptions.queries) {
             const q = {};
 
@@ -101,9 +102,7 @@
             queries_arr.push(q);
           }
 
-          queries_arr.reverse();
-
-          for (let i = 0; i < queries_arr.length; i++) {
+          for (let i = queries_arr.length - 1; i >= 0; i--) {
             const query = queries_arr[i];
             const breakpoint = Object.keys(query)[0];
 
