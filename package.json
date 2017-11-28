@@ -1,6 +1,6 @@
 {
   "name": "hc-sticky",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Cross-browser plugin that makes any element on your page visible while you scroll",
   "main": "hc-sticky.js",
   "author": "Some Web Media",
