@@ -2,12 +2,10 @@
   "name": "hc-sticky",
   "version": "2.0.1",
   "description": "Cross-browser plugin that makes any element on your page visible while you scroll",
-  "main": "hc-sticky.js",
+  "main": "dist/hc-sticky.js",
   "author": "Some Web Media",
   "license": "MIT",
-  "dependencies": {
-    "eventie": "^1.0.6"
-  },
+  "dependencies": {},
   "devDependencies": {
     "babel-core": "^6.25.0",
     "babel-plugin-check-es2015-constants": "^6.22.0",
@@ -15,6 +13,7 @@
     "babel-plugin-transform-es2015-block-scoped-functions": "^6.22.0",
     "babel-plugin-transform-es2015-block-scoping": "^6.26.0",
     "cheerio": "^0.22.0",
+    "eventie": "^1.0.6",
     "glob": "^7.1.2",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^4.0.0",
@@ -24,5 +23,9 @@
     "gulp-sass": "^3.1.0",
     "gulp-template": "^4.0.0",
     "gulp-uglify": "^1.5.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/somewebmedia/hc-sticky.git"
   }
 }
