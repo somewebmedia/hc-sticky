@@ -6,23 +6,6 @@
   "authors": [
     "Some Web Media <somewebmedia@gmail.com>"
   ],
-  "description": "Cross-browser plugin that makes any element on your page visible while you scroll",
-  "main": "hc-sticky.js",
-  "keywords": [
-    "stick",
-    "scroll",
-    "sticky",
-    "box",
-    "menu",
-    "floating"
-  ],
   "license": "MIT",
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "package.json",
-    "examples",
-    "tests"
-  ]
+  "main": "dist/hc-sticky.js"
 }
