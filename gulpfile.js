@@ -148,8 +148,6 @@ gulp.task('main-html', () => {
 
 gulp.task('default', ['js', 'demo-sass', 'demo-html', 'demo-browserify', 'open-html']);
 
-gulp.task('dist', ['js']);
-
 gulp.task('watch', ['js', 'demo-sass', 'demo-html', 'demo-browserify', 'open-html'], () => {
   gulp.watch(['./src/*.js'], ['js', 'demo-browserify']);
   gulp.watch(['./demo/src/*.js'], ['demo-browserify']);

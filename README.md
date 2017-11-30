@@ -108,8 +108,6 @@ This package comes with [Gulp](https://gulpjs.com/). The following tasks are ava
 
   * `default` compiles the JS into `/dist` and builds the Demos into `demo/build`.
   * `watch` watches source JS and Demo files and builds them automatically whenever you save.
-  * `dist` compiles the JS into `/dist` only.
-  * `distwatch` compiles the JS into `/dist` only.
 
 You can pass a `--dev` command if you don't want the compiled JS to be minified.
 
