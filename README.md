@@ -4,32 +4,55 @@ HC-Sticky
 Cross-browser plugin that makes any element on your page visible while you scroll.
 
 
-## Usage
+## Quick start
+
+### Install
+
+This package can be installed with:
+
+- [npm](https://www.npmjs.com/package/hc-sticky): `npm install --save hc-sticky`
+- [bower](http://bower.io/search/?q=hc-sticky): `bower install --save hc-sticky`
+
+Or download the [latest release](https://github.com/somewebmedia/hc-sticky/releases).
+
+
+### Load
+
+#### Static HTML
 
 ```html
-<script src="/path/to/hc-sticky.js"></script>
+<script src="/path_to/hc-sticky.js"></script>
+```
 
-<script>
-  // call this script just before closing </html> or after your #element
-  var Sticky = new hcSticky('#element', {
+#### Browserify
+
+In the script, including HC-Sticky will usually look like this:
+
+```js
+const hcSticky = require('hc-sticky');
+```
+
+
+### Usage
+
+Be sure to call HC-Sticky once your element is available in the DOM.
+
+```js
+var Sticky = new hcSticky('#element', {
+  stickTo: '#content'
+});
+```
+
+#### jQuery
+
+```js
+jQuery(document).ready(function($) {
+  $('#element').hcSticky({
     stickTo: '#content'
   });
-</script>
+});
 ```
 
-### jQuery
-
-```html
-<script src="/path/to/hc-sticky.js"></script>
-
-<script>
-  jQuery(document).ready(function($) {
-    $('#element').hcSticky({
-      stickTo: '#content'
-    });
-  });
-</script>
-```
 
 ## Options
 
@@ -53,12 +76,13 @@ HC Sticky has a wide range of options you can set to have a full controll over t
 | *`resizeDebounce`* | 100 | int | Limit the rate at which the HC Sticky can fire on window resize. |
 
 
-## Methods
+### Methods
 
 Methods are used to control the plugin after initialization.
 
 Example:
-```javascript
+
+```js
 var Sticky = new hcSticky('#element', {
   stickTo: '#content'
 });
@@ -72,7 +96,24 @@ Sticky.update({
 |---------|---------|--------------|
 | *`options`* | string | Returns current settings, or a specific setting if you specify it. |
 | *`update`* | object | Updates the settings with the new ones. |
-| *`reinit`* | | Recalculates sticky size and position. Useful after altering DOM elements inside sticky. |
-| *`detach`* | | Detaches the HC-Sticky from element, preventing it from running. |
-| *`attach`* | | Attaches the HC-Sticky back to the element. |
-| *`destroy`* | | Completely destroys HC-Sticky and reverts element to original state. |
+| *`reinit`* | N/A | Recalculates sticky size and position. Useful after altering DOM elements inside sticky. |
+| *`detach`* | N/A | Detaches the HC-Sticky from element, preventing it from running. |
+| *`attach`* | N/A | Attaches the HC-Sticky back to the element. |
+| *`destroy`* | N/A | Completely destroys HC-Sticky and reverts element to original state. |
+
+
+## Building
+
+This package comes with [Gulp](https://gulpjs.com/). The following tasks are available:
+
+  * `default` compiles the JS into `/dist` and builds the Demos into `demo/build`.
+  * `watch` watches source JS and Demo files and builds them automatically whenever you save.
+  * `dist` compiles the JS into `/dist` only.
+  * `distwatch` compiles the JS into `/dist` only.
+
+You can pass a `--dev` command if you don't want the compiled JS to be minified.
+
+
+## License
+
+The code and the documentation are released under the MIT License.
