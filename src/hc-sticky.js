@@ -9,7 +9,24 @@
  * License: MIT
  */
 
-((window, document) => {
+(function(global, factory) {
+  'use strict';
+
+  if (typeof module === 'object' && typeof module.exports === 'object') {
+    if (global.document) {
+      module.exports = factory(global);
+    }
+    else {
+      throw new Error('HC-Sticky requires a browser to run.');
+    }
+  }
+  else if (typeof define === 'function' && define.amd) {
+    define('hcSticky', [], factory(global));
+  }
+  else {
+    factory(global);
+  }
+})(typeof window !== 'undefined' ? window : this, (window) => {
   'use strict';
 
   const defaultOptions = {
@@ -31,6 +48,8 @@
     disable: false
   };
 
+  const document = window.document;
+
   const hcSticky = function(elem, userSettings) {
     // use querySeletor if string is passed
     if (typeof elem === 'string') {
@@ -42,8 +61,8 @@
       return false;
     }
 
-    const Helpers = hcSticky.Helpers;
     let stickyOptions = {};
+    const Helpers = hcSticky.Helpers;
     const elemParent = elem.parentNode;
 
     // parent can't be static
@@ -496,7 +515,7 @@
     const stopSticky = () => {
       if (scrollAttached) {
         // detach sticky from scroll
-        eventie.unbind(window, 'scroll', runSticky);
+        Helpers.event.unbind(window, 'scroll', runSticky);
 
         // sticky is not attached to scroll anymore
         scrollAttached = false;
@@ -519,7 +538,7 @@
 
       if (!scrollAttached) {
         // attach sticky to scroll
-        eventie.bind(window, 'scroll', runSticky);
+        Helpers.event.bind(window, 'scroll', runSticky);
 
         // sticky is attached to scroll
         scrollAttached = true;
@@ -591,7 +610,7 @@
     const Detach = () => {
       // detach resize reinit
       if (resizeAttached) {
-        eventie.unbind(window, 'resize', resize_cb);
+        Helpers.event.unbind(window, 'resize', resize_cb);
         resizeAttached = false;
       }
 
@@ -606,7 +625,7 @@
     const Attach = () => {
       // attach resize reinit
       if (!resizeAttached) {
-        eventie.bind(window, 'resize', resize_cb);
+        Helpers.event.bind(window, 'resize', resize_cb);
         resizeAttached = true;
       }
 
@@ -634,24 +653,10 @@
     Attach();
 
     // reinit on complete page load
-    eventie.bind(window, 'load', reinitSticky);
+    Helpers.event.bind(window, 'load', reinitSticky);
   };
 
-  /* Module definition */
-  if (typeof define === 'function' && define.amd) {
-    // AMD
-    define(hcSticky);
-  }
-  else if (typeof exports === 'object') {
-    // CommonJS
-    module.exports = hcSticky;
-  }
-  else {
-    // browser global
-    window.hcSticky = window.hcSticky || hcSticky;
-  }
-
-  /* jQuery Plugin */
+  // jQuery Plugin
   if (typeof window.jQuery !== 'undefined') {
     const $ = window.jQuery;
 
@@ -679,4 +684,9 @@
       }
     });
   }
-})(window, window.document);
+
+  // browser global
+  window.hcSticky = window.hcSticky || hcSticky;
+
+  return hcSticky;
+});

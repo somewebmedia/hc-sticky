@@ -1,5 +1,8 @@
-((hcSticky, window, document) => {
+((window) => {
   'use strict';
+
+  const hcSticky = window.hcSticky;
+  const document = window.document;
 
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
   if (typeof Object.assign !== 'function') {
@@ -29,6 +32,62 @@
       configurable: true
     });
   }
+
+  // https://github.com/desandro/eventie
+  const event = (() => {
+    var docElem = document.documentElement;
+
+    var bind = function() {};
+
+    function getIEEvent( obj ) {
+      var event = window.event;
+      // add event.target
+      event.target = event.target || event.srcElement || obj;
+      return event;
+    }
+
+    if ( docElem.addEventListener ) {
+      bind = function( obj, type, fn ) {
+        obj.addEventListener( type, fn, false );
+      };
+    } else if ( docElem.attachEvent ) {
+      bind = function( obj, type, fn ) {
+        obj[ type + fn ] = fn.handleEvent ?
+          function() {
+            var event = getIEEvent( obj );
+            fn.handleEvent.call( fn, event );
+          } :
+          function() {
+            var event = getIEEvent( obj );
+            fn.call( obj, event );
+          };
+        obj.attachEvent( "on" + type, obj[ type + fn ] );
+      };
+    }
+
+    var unbind = function() {};
+
+    if ( docElem.removeEventListener ) {
+      unbind = function( obj, type, fn ) {
+        obj.removeEventListener( type, fn, false );
+      };
+    } else if ( docElem.detachEvent ) {
+      unbind = function( obj, type, fn ) {
+        obj.detachEvent( "on" + type, obj[ type + fn ] );
+        try {
+          delete obj[ type + fn ];
+        } catch ( err ) {
+          // can't delete window object properties
+          obj[ type + fn ] = undefined;
+        }
+      };
+    }
+
+    return {
+      bind: bind,
+      unbind: unbind
+    };
+  })();
 
   const isEmptyObject = (obj) => {
     for (const name in obj) {
@@ -189,5 +248,6 @@
   hcSticky.Helpers.position = position;
   hcSticky.Helpers.getStyle = getStyle;
   hcSticky.Helpers.getCascadedStyle = getCascadedStyle;
+  hcSticky.Helpers.event = event;
 
-})(window.hcSticky, window, window.document);
+})(window);
