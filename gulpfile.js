@@ -8,46 +8,34 @@ const concat = require('gulp-concat');
 const babel = require('gulp-babel');
 const uglify = require('gulp-uglify');
 const saveLicense = require('uglify-save-license');
-const gulpif = require('gulp-if');
 const fs = require('fs');
 const path = require('path');
 const through = require('through2');
 const open = require('gulp-open');
+const browserify = require('gulp-browserify');
 const argv = require('yargs').argv;
+
+/* Main JS */
 
 gulp.task('js', () => {
   return gulp.src([
       './src/hc-sticky.js',
-      './src/hc-sticky.helpers.js',
-      './node_modules/eventie/eventie.js'
+      './src/hc-sticky.helpers.js'
     ])
-
     .pipe(babel({
       plugins: [
         'check-es2015-constants',
         'transform-es2015-arrow-functions',
         'transform-es2015-block-scoped-functions',
-        'transform-es2015-block-scoping',
+        'transform-es2015-block-scoping'
       ]
     }))
-
-    .pipe(gulpif((file) => {
-      // preserve license comment only on main js
-      return file.relative === 'hc-sticky.js';
-    }, argv.dev ? through.obj() : uglify({
+    .pipe(concat('hc-sticky.js'))
+    .pipe(argv.dev ? through.obj() : uglify({
       output: {
         comments: saveLicense
       }
-    })))
-
-    .pipe(gulpif((file) => {
-      return file.relative !== 'hc-sticky.js';
-    }, argv.dev ? through.obj() : uglify()))
-
-    .pipe(concat('hc-sticky.js', {
-      newLine: ''
     }))
-
     .pipe(gulp.dest('./dist'));
 });
 
@@ -76,12 +64,30 @@ gulp.task('demo-html', () => {
   return gulp.src(demos)
     .pipe(template({
       style_path: 'demos.css',
-      sticky_path: '../../dist/hc-sticky.js'
+      sticky_path: '../../dist/hc-sticky.js',
+      browserify_path: 'browserify.js'
     }))
     .pipe(gulp.dest(demo_dest));
 });
 
-const compile = (openHtml) => {
+gulp.task('demo-browserify', () => {
+  return gulp.src(['./demo/src/browserify.js'])
+    .pipe(browserify({
+      insertGlobals: true
+    }))
+    .pipe(babel({
+      plugins: [
+        'check-es2015-constants',
+        'transform-es2015-arrow-functions',
+        'transform-es2015-block-scoped-functions',
+        'transform-es2015-block-scoping'
+      ]
+    }))
+    .pipe(argv.dev ? through.obj() : uglify())
+    .pipe(gulp.dest(demo_dest));
+});
+
+const compileHtml = (openHtml) => {
   openHtml = openHtml || false;
 
   const demos = glob.sync('./demo/src/*.html') || [];
@@ -131,21 +137,22 @@ const compile = (openHtml) => {
 };
 
 gulp.task('open-html', () => {
-  compile(true);
+  compileHtml(true);
 });
 
 gulp.task('main-html', () => {
-  compile(false);
+  compileHtml(false);
 });
 
 /* Gulp Tasks */
 
-gulp.task('default', ['js', 'demo-sass', 'demo-html', 'open-html']);
+gulp.task('default', ['js', 'demo-sass', 'demo-html', 'demo-browserify', 'open-html']);
 
 gulp.task('dist', ['js']);
 
-gulp.task('watch', ['js', 'demo-sass', 'demo-html', 'open-html'], () => {
-  gulp.watch(['./src/*.js'], ['js']);
-  gulp.watch(['./**/*.scss'], ['demo-sass']);
-  gulp.watch(['./**/*.html'], ['demo-html', 'main-html']);
+gulp.task('watch', ['js', 'demo-sass', 'demo-html', 'demo-browserify', 'open-html'], () => {
+  gulp.watch(['./src/*.js'], ['js', 'demo-browserify']);
+  gulp.watch(['./demo/src/*.js'], ['demo-browserify']);
+  gulp.watch(['./demo/src/*.scss'], ['demo-sass']);
+  gulp.watch(['./demo/src/*.html'], ['demo-html', 'main-html']);
 });
