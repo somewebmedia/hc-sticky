@@ -7,6 +7,8 @@ const cheerio = require('cheerio');
 const concat = require('gulp-concat');
 const babel = require('gulp-babel');
 const uglify = require('gulp-uglify');
+const saveLicense = require('uglify-save-license');
+const gulpif = require('gulp-if');
 const fs = require('fs');
 const path = require('path');
 const through = require('through2');
@@ -19,7 +21,7 @@ gulp.task('js', () => {
       './src/hc-sticky.helpers.js',
       './node_modules/eventie/eventie.js'
     ])
-    .pipe(concat('hc-sticky.js'))
+
     .pipe(babel({
       plugins: [
         'check-es2015-constants',
@@ -28,25 +30,42 @@ gulp.task('js', () => {
         'transform-es2015-block-scoping',
       ]
     }))
-    .pipe(argv.dev ? through.obj() : uglify())
+
+    .pipe(gulpif((file) => {
+      // preserve license comment only on main js
+      return file.relative === 'hc-sticky.js';
+    }, argv.dev ? through.obj() : uglify({
+      output: {
+        comments: saveLicense
+      }
+    })))
+
+    .pipe(gulpif((file) => {
+      return file.relative !== 'hc-sticky.js';
+    }, argv.dev ? through.obj() : uglify()))
+
+    .pipe(concat('hc-sticky.js', {
+      newLine: ''
+    }))
+
     .pipe(gulp.dest('./dist'));
 });
 
-/* Demos */
+/* Demo */
 
-const demos_dest = './demos/compiled';
+const demo_dest = './demo/build';
 
-gulp.task('demos-sass', () => {
-  return gulp.src(['./demos/src/*.scss'])
+gulp.task('demo-sass', () => {
+  return gulp.src(['./demo/src/*.scss'])
     .pipe(sass({
       'outputStyle': argv.dev ? 'development' : 'compressed'
     }).on('error', sass.logError))
     .pipe(autoprefixer())
-    .pipe(gulp.dest(demos_dest));
+    .pipe(gulp.dest(demo_dest));
 });
 
-gulp.task('demos-html', () => {
-  const demos = glob.sync('./demos/src/*.html') || [];
+gulp.task('demo-html', () => {
+  const demos = glob.sync('./demo/src/*.html') || [];
 
   demos.forEach((item, i) => {
     if (path.basename(item) === 'index.html') {
@@ -59,13 +78,13 @@ gulp.task('demos-html', () => {
       style_path: 'demos.css',
       sticky_path: '../../dist/hc-sticky.js'
     }))
-    .pipe(gulp.dest(demos_dest));
+    .pipe(gulp.dest(demo_dest));
 });
 
 const compile = (openHtml) => {
   openHtml = openHtml || false;
 
-  const demos = glob.sync('./demos/src/*.html') || [];
+  const demos = glob.sync('./demo/src/*.html') || [];
   let demos_content = '';
 
   demos.forEach((item) => {
@@ -99,15 +118,15 @@ const compile = (openHtml) => {
   };
 
   if (openHtml) {
-    return gulp.src('./demos/src/index.html')
+    return gulp.src('./demo/src/index.html')
       .pipe(template(template_options))
-      .pipe(gulp.dest(demos_dest))
+      .pipe(gulp.dest(demo_dest))
       .pipe(open());
   }
   else {
-    return gulp.src('./demos/src/index.html')
+    return gulp.src('./demo/src/index.html')
       .pipe(template(template_options))
-      .pipe(gulp.dest(demos_dest));
+      .pipe(gulp.dest(demo_dest));
   }
 };
 
@@ -119,10 +138,14 @@ gulp.task('main-html', () => {
   compile(false);
 });
 
-gulp.task('watch', ['js', 'demos-sass', 'demos-html', 'open-html'], () => {
-  gulp.watch(['./src/*.js'], ['js']);
-  gulp.watch(['./**/*.scss'], ['demos-sass']);
-  gulp.watch(['./**/*.html'], ['demos-html', 'main-html']);
-});
+/* Gulp Tasks */
 
-gulp.task('default', ['js', 'demos-sass', 'demos-html', 'open-html']);
+gulp.task('default', ['js', 'demo-sass', 'demo-html', 'open-html']);
+
+gulp.task('dist', ['js']);
+
+gulp.task('watch', ['js', 'demo-sass', 'demo-html', 'open-html'], () => {
+  gulp.watch(['./src/*.js'], ['js']);
+  gulp.watch(['./**/*.scss'], ['demo-sass']);
+  gulp.watch(['./**/*.html'], ['demo-html', 'main-html']);
+});

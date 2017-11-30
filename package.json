@@ -5,6 +5,10 @@
   "main": "dist/hc-sticky.js",
   "author": "Some Web Media",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/somewebmedia/hc-sticky.git"
+  },
   "dependencies": {},
   "devDependencies": {
     "babel-core": "^6.25.0",
@@ -19,13 +23,11 @@
     "gulp-autoprefixer": "^4.0.0",
     "gulp-babel": "^7.0.0",
     "gulp-concat": "^2.6.1",
+    "gulp-if": "^2.0.2",
     "gulp-open": "^2.0.0",
     "gulp-sass": "^3.1.0",
     "gulp-template": "^4.0.0",
-    "gulp-uglify": "^1.5.3"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/somewebmedia/hc-sticky.git"
+    "gulp-uglify": "^3.0.0",
+    "uglify-save-license": "^0.4.1"
   }
 }
