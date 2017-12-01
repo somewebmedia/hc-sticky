@@ -70,9 +70,7 @@
       elemParent.style.position = 'relative';
     }
 
-    const setOptions = (options) => {
-      options = options || {};
-
+    const setOptions = (options = {}) => {
       // nothing to set
       if (Helpers.isEmptyObject(options) && stickyOptions) {
         return;
@@ -177,7 +175,7 @@
     const Sticky = {
       css: {},
       position: null, // so we don't need to check css all the time
-      stick: (args) => {
+      stick: (args = {}) => {
         if (Helpers.hasClass(elem, stickyOptions.stickyClass)) {
           // check if element is already sticky
           return;
@@ -188,8 +186,6 @@
         }
 
         Sticky.position = 'fixed';
-
-        args = args || {};
 
         // apply styles
         elem.style.position = 'fixed';
@@ -223,8 +219,7 @@
           stickyOptions.onStart.call(elem, stickyOptions);
         }
       },
-      reset: (args) => {
-        args = args || {};
+      reset: (args = {}) => {
         args.disable = args.disable || false;
 
         // check if we've already done this

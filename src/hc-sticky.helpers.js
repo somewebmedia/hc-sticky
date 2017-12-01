@@ -214,22 +214,22 @@
     }
 
     // check for margin:auto
-    if (!style['margin'] && style['marginLeft'] === 'auto') {
-      style['margin'] = 'auto';
+    if (!style.margin && style.marginLeft === 'auto') {
+      style.margin = 'auto';
     }
-    else if (!style['margin'] && style['marginLeft'] === style['marginRight'] && style['marginLeft'] === style['marginTop'] && style['marginLeft'] === style['marginBottom']) {
-      style['margin'] = style['marginLeft'];
+    else if (!style.margin && style.marginLeft === style.marginRight && style.marginLeft === style.marginTop && style.marginLeft === style.marginBottom) {
+      style.margin = style.marginLeft;
     }
 
     // safari margin:auto hack
-    if (!style['margin'] && style['marginLeft'] === '0px' && style['marginRight'] === '0px') {
+    if (!style.margin && style.marginLeft === '0px' && style.marginRight === '0px') {
       const posLeft = el.offsetLeft - el.parentNode.offsetLeft;
-      const marginLeft = posLeft - (parseInt(style['left']) || 0) - (parseInt(style['right']) || 0);
-      const marginRight = el.parentNode.offsetWidth - el.offsetWidth - posLeft - (parseInt(style['right']) || 0) + (parseInt(style['left']) || 0);
+      const marginLeft = posLeft - (parseInt(style.left) || 0) - (parseInt(style.right) || 0);
+      const marginRight = el.parentNode.offsetWidth - el.offsetWidth - posLeft - (parseInt(style.right) || 0) + (parseInt(style.left) || 0);
       const diff = marginRight - marginLeft;
 
       if (diff === 0 || diff === 1) {
-        style['margin'] = 'auto';
+        style.margin = 'auto';
       }
     }
 
@@ -237,17 +237,18 @@
     clone.parentNode.removeChild(clone);
     clone = null;
 
-    return style || null;
+    return style;
   };
 
-  hcSticky.Helpers = {};
-  hcSticky.Helpers.isEmptyObject = isEmptyObject;
-  hcSticky.Helpers.debounce = debounce;
-  hcSticky.Helpers.hasClass = hasClass;
-  hcSticky.Helpers.offset = offset;
-  hcSticky.Helpers.position = position;
-  hcSticky.Helpers.getStyle = getStyle;
-  hcSticky.Helpers.getCascadedStyle = getCascadedStyle;
-  hcSticky.Helpers.event = event;
+  hcSticky.Helpers = {
+    isEmptyObject,
+    debounce,
+    hasClass,
+    offset,
+    position,
+    getStyle,
+    getCascadedStyle,
+    event
+  };
 
 })(window);
