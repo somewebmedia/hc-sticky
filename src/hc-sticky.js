@@ -298,7 +298,7 @@
         const elemStyle = Helpers.getStyle(elem);
 
         // get spacer offset and position
-        Spacer.offsetLeft = Helpers.offset(elem).left  - (parseInt(elemStyle.marginLeft) || 0);
+        Spacer.offsetLeft = Helpers.offset(elem).left - (parseInt(elemStyle.marginLeft) || 0);
         Spacer.positionLeft = Helpers.position(elem).left;
 
         // get spacer width
@@ -444,7 +444,7 @@
       largerSticky = sticky_height > window_height;
 
       const offset_top = window.pageYOffset || document.documentElement.scrollTop;
-      const sticky_top = Helpers.offset(elem).top;
+      const sticky_top = Math.round(Helpers.offset(elem).top);
       const sticky_window_top = sticky_top - offset_top;
       let bottom_distance;
 
