@@ -71,8 +71,8 @@
     }
 
     const setOptions = (options = {}) => {
-      // nothing to set
-      if (Helpers.isEmptyObject(options) && stickyOptions) {
+      if (Helpers.isEmptyObject(options) && !Helpers.isEmptyObject(stickyOptions)) {
+        // nothing to set
         return;
       }
 
@@ -421,9 +421,10 @@
         : stickyOptions.innerTop
           ? stickyOptions.innerTop
           : 0;
+
       stick_bottom = isNaN(stickyOptions.bottomEnd) && stickyOptions.bottomEnd.indexOf('%') > -1
         ? (parseFloat(stickyOptions.bottomEnd) / 100) * window_height
-        : stickyOptions.bottomEnd,
+        : stickyOptions.bottomEnd;
 
       top_limit = container_offsetTop - options_top + stick_top + sticky_offsetTop;
     };
