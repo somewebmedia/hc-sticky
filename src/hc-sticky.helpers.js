@@ -179,6 +179,11 @@
 
     clone.style.display = 'none';
 
+    // remove name attr from cloned radio buttons to prevent their clearing
+    clone.querySelectorAll('input[type="radio"]').forEach((el) => {
+      el.removeAttribute('name');
+    });
+
     // insert clone to DOM
     el.parentNode.insertBefore(clone, el.nextSibling);
 
