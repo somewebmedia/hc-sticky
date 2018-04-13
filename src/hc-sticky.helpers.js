@@ -4,7 +4,9 @@
   const hcSticky = window.hcSticky;
   const document = window.document;
 
-  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
+  /*
+   * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
+   */
   if (typeof Object.assign !== 'function') {
     Object.defineProperty(Object, 'assign', {
       value: function assign(target, varArgs) {
@@ -128,14 +130,6 @@
     };
   })();
 
-  const isEmptyObject = (obj) => {
-    for (const name in obj) {
-      return false;
-    }
-
-    return true;
-  };
-
   // debounce taken from underscore
   const debounce = (func, wait, immediate) => {
     let timeout;
@@ -170,6 +164,15 @@
         return s.toUpperCase().replace('-', '');
       })] : el.currentStyle;
     }
+  };
+
+  // check if object is empty
+  const isEmptyObject = (obj) => {
+    for (const name in obj) {
+      return false;
+    }
+
+    return true;
   };
 
   // check if element has class
