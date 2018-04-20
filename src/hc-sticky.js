@@ -223,7 +223,7 @@
         args.disable = args.disable || false;
 
         // check if we've already done this
-        if (Sticky.position !== 'fixed' && Sticky.position !== null && (
+        if (args.disable !== true && Sticky.position !== 'fixed' && Sticky.position !== null && (
           (typeof args.top === 'undefined' && typeof args.bottom === 'undefined') ||
           (typeof args.top !== 'undefined' && (parseInt(Helpers.getStyle(elem, 'top')) || 0) === args.top) ||
           (typeof args.bottom !== 'undefined' && (parseInt(Helpers.getStyle(elem, 'bottom')) || 0) === args.bottom)
