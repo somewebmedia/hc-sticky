@@ -30,5 +30,14 @@
     "gulp-template": "^4.0.0",
     "gulp-uglify": "^3.0.0",
     "uglify-save-license": "^0.4.1"
-  }
+  },
+  "keywords": [
+    "sticky",
+    "fixed",
+    "affix",
+    "scroll",
+    "sidebar",
+    "jquery",
+    "plugin"
+  ]
 }
