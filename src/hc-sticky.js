@@ -219,11 +219,11 @@
           stickyOptions.onStart.call(elem, stickyOptions);
         }
       },
-      reset: (args = {}) => {
-        args.disable = args.disable || false;
+      release: (args = {}) => {
+        args.stop = args.stop || false;
 
         // check if we've already done this
-        if (args.disable !== true && Sticky.position !== 'fixed' && Sticky.position !== null && (
+        if (args.stop !== true && Sticky.position !== 'fixed' && Sticky.position !== null && (
           (typeof args.top === 'undefined' && typeof args.bottom === 'undefined') ||
           (typeof args.top !== 'undefined' && (parseInt(Helpers.getStyle(elem, 'top')) || 0) === args.top) ||
           (typeof args.bottom !== 'undefined' && (parseInt(Helpers.getStyle(elem, 'bottom')) || 0) === args.bottom)
@@ -231,7 +231,7 @@
           return;
         }
 
-        if (args.disable === true) {
+        if (args.stop === true) {
           // remove spacer
           if (Spacer.isAttached === true) {
             Spacer.detach();
@@ -251,18 +251,18 @@
 
         // apply styles
         elem.style.position = position;
-        elem.style.left = args.disable === true ? Sticky.css.left : Spacer.positionLeft + 'px';
+        elem.style.left = args.stop === true ? Sticky.css.left : Spacer.positionLeft + 'px';
         elem.style.width = position !== 'absolute' ? Sticky.css.width : Spacer.width;
 
         if (typeof args.bottom === 'undefined') {
-          elem.style.bottom = args.disable === true ? '' : 'auto';
+          elem.style.bottom = args.stop === true ? '' : 'auto';
         }
         else {
           elem.style.bottom = args.bottom + 'px';
         }
 
         if (typeof args.top === 'undefined') {
-          elem.style.top = args.disable === true ? '' : 'auto';
+          elem.style.top = args.stop === true ? '' : 'auto';
         }
         else {
           elem.style.top = args.top + 'px';
@@ -457,7 +457,7 @@
       if (offset_top > top_limit) {
         // http://geek-and-poke.com/geekandpoke/2012/7/27/simply-explained.html
         if (bottom_limit + options_top + (largerSticky ? options_bottom : 0) - (stickyOptions.followScroll && largerSticky ? 0 : options_top) <= offset_top + sticky_height - stick_top - ((sticky_height - stick_top > window_height - (top_limit - stick_top) && stickyOptions.followScroll) ? (((bottom_distance = sticky_height - window_height - stick_top) > 0) ? bottom_distance : 0) : 0)) { // bottom reached end
-          Sticky.reset({
+          Sticky.release({
             position: 'absolute',
             //top: bottom_limit - sticky_height - top_limit + stick_top + sticky_offsetTop
             bottom: elemParent_offsetTop + elemParent.offsetHeight - bottom_limit - options_top
@@ -472,7 +472,7 @@
               });
             }
             else if (Sticky.position === 'fixed') { // bottom reached window bottom
-              Sticky.reset({
+              Sticky.release({
                 position: 'absolute',
                 top: sticky_top - options_top - top_limit - diff_y + stick_top
               });
@@ -480,7 +480,7 @@
           }
           else { // scroll up
             if (sticky_window_top + stick_top < 0 && Sticky.position === 'fixed') { // top reached window top
-              Sticky.reset({
+              Sticky.release({
                 position: 'absolute',
                 top: sticky_top - options_top - top_limit + stick_top - diff_y
               });
@@ -499,8 +499,8 @@
         }
       }
       else { // starting point
-        Sticky.reset({
-          disable: true
+        Sticky.release({
+          stop: true
         });
       }
     };
@@ -508,7 +508,7 @@
     let scrollAttached = false;
     let resizeAttached = false;
 
-    const stopSticky = () => {
+    const disableSticky = () => {
       if (scrollAttached) {
         // detach sticky from scroll
         Helpers.event.unbind(window, 'scroll', runSticky);
@@ -524,7 +524,7 @@
 
       // check if sticky is bigger than reffering container
       if (sticky_height >= container_height) {
-        stopSticky();
+        disableSticky();
 
         return;
       }
@@ -572,7 +572,7 @@
       applyQueries();
 
       if (isDisabled()) {
-        stopSticky();
+        disableSticky();
         return;
       }
 
@@ -610,7 +610,7 @@
         resizeAttached = false;
       }
 
-      stopSticky();
+      disableSticky();
     };
 
     const Destroy = () => {
@@ -628,7 +628,7 @@
       applyQueries();
 
       if (isDisabled()) {
-        stopSticky();
+        disableSticky();
         return;
       }
 
