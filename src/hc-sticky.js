@@ -29,7 +29,7 @@
 })(typeof window !== 'undefined' ? window : this, (window) => {
   'use strict';
 
-  const defaultOptions = {
+  const DEFAULT_OPTIONS = {
     top: 0,
     bottom: 0,
     bottomEnd: 0,
@@ -61,7 +61,7 @@
       return false;
     }
 
-    let stickyOptions = {};
+    let STICKY_OPTIONS = {};
     const Helpers = hcSticky.Helpers;
     const elemParent = elem.parentNode;
 
@@ -71,32 +71,32 @@
     }
 
     const setOptions = (options = {}) => {
-      if (Helpers.isEmptyObject(options) && !Helpers.isEmptyObject(stickyOptions)) {
+      if (Helpers.isEmptyObject(options) && !Helpers.isEmptyObject(STICKY_OPTIONS)) {
         // nothing to set
         return;
       }
 
       // extend options
-      stickyOptions = Object.assign({}, defaultOptions, stickyOptions, options);
+      STICKY_OPTIONS = Object.assign({}, DEFAULT_OPTIONS, STICKY_OPTIONS, options);
     };
 
     const resetOptions = (options) => {
-      stickyOptions = Object.assign({}, defaultOptions, options || {});
+      STICKY_OPTIONS = Object.assign({}, DEFAULT_OPTIONS, options || {});
     };
 
     const getOptions = (option) => {
-      return option ? (stickyOptions.option || null) : Object.assign({}, stickyOptions);
+      return option ? (STICKY_OPTIONS.option || null) : Object.assign({}, STICKY_OPTIONS);
     };
 
     const isDisabled = () => {
-      return stickyOptions.disable;
+      return STICKY_OPTIONS.disable;
     };
 
     const applyQueries = () => {
-      if (stickyOptions.queries) {
+      if (STICKY_OPTIONS.queries) {
         const window_width = window.innerWidth;
-        const queryFlow = stickyOptions.queryFlow;
-        const queries = stickyOptions.queries;
+        const queryFlow = STICKY_OPTIONS.queryFlow;
+        const queries = STICKY_OPTIONS.queries;
 
         // reset settings
         resetOptions(userSettings);
@@ -112,7 +112,7 @@
           const queries_arr = [];
 
           // convert to array so we can reverse loop it
-          for (const b in stickyOptions.queries) {
+          for (const b in STICKY_OPTIONS.queries) {
             const q = {};
 
             q[b] = queries[b];
@@ -176,7 +176,7 @@
       css: {},
       position: null, // so we don't need to check css all the time
       stick: (args = {}) => {
-        if (Helpers.hasClass(elem, stickyOptions.stickyClass)) {
+        if (Helpers.hasClass(elem, STICKY_OPTIONS.stickyClass)) {
           // check if element is already sticky
           return;
         }
@@ -208,15 +208,15 @@
 
         // add sticky class
         if (elem.classList) {
-          elem.classList.add(stickyOptions.stickyClass);
+          elem.classList.add(STICKY_OPTIONS.stickyClass);
         }
         else {
-          elem.className += ' ' + stickyOptions.stickyClass;
+          elem.className += ' ' + STICKY_OPTIONS.stickyClass;
         }
 
         // fire 'start' event
-        if (stickyOptions.onStart) {
-          stickyOptions.onStart.call(elem, stickyOptions);
+        if (STICKY_OPTIONS.onStart) {
+          STICKY_OPTIONS.onStart.call(elem, STICKY_OPTIONS);
         }
       },
       release: (args = {}) => {
@@ -270,15 +270,15 @@
 
         // remove sticky class
         if (elem.classList) {
-          elem.classList.remove(stickyOptions.stickyClass);
+          elem.classList.remove(STICKY_OPTIONS.stickyClass);
         }
         else {
-          elem.className = elem.className.replace(new RegExp('(^|\\b)' + stickyOptions.stickyClass.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+          elem.className = elem.className.replace(new RegExp('(^|\\b)' + STICKY_OPTIONS.stickyClass.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
         }
 
         // fire 'stop' event
-        if (stickyOptions.onStop) {
-          stickyOptions.onStop.call(elem, stickyOptions);
+        if (STICKY_OPTIONS.onStop) {
+          STICKY_OPTIONS.onStop.call(elem, STICKY_OPTIONS);
         }
       }
     };
@@ -352,18 +352,18 @@
       Spacer.init();
 
       // check if referring element is document
-      stickTo_document = stickyOptions.stickTo && (stickyOptions.stickTo === 'document'
-        || (stickyOptions.stickTo.nodeType && stickyOptions.stickTo.nodeType === 9)
-        || (typeof stickyOptions.stickTo === 'object' && stickyOptions.stickTo instanceof (typeof HTMLDocument !== 'undefined' ? HTMLDocument : Document)))
+      stickTo_document = STICKY_OPTIONS.stickTo && (STICKY_OPTIONS.stickTo === 'document'
+        || (STICKY_OPTIONS.stickTo.nodeType && STICKY_OPTIONS.stickTo.nodeType === 9)
+        || (typeof STICKY_OPTIONS.stickTo === 'object' && STICKY_OPTIONS.stickTo instanceof (typeof HTMLDocument !== 'undefined' ? HTMLDocument : Document)))
       ? true : false;
 
       // select referred container
-      container = stickyOptions.stickTo
+      container = STICKY_OPTIONS.stickTo
         ? stickTo_document
           ? document
-          : typeof stickyOptions.stickTo === 'string'
-            ? document.querySelector(stickyOptions.stickTo)
-            : stickyOptions.stickTo
+          : typeof STICKY_OPTIONS.stickTo === 'string'
+            ? document.querySelector(STICKY_OPTIONS.stickTo)
+            : STICKY_OPTIONS.stickTo
         : elemParent;
 
       // get sticky height
@@ -390,7 +390,7 @@
       container_height = calcContainerHeight();
 
       container_offsetTop = !stickTo_document ? Helpers.offset(container).top : 0;
-      elemParent_offsetTop = !stickyOptions.stickTo
+      elemParent_offsetTop = !STICKY_OPTIONS.stickTo
         ? container_offsetTop // parent is container
         : !stickTo_document
           ? Helpers.offset(elemParent).top
@@ -399,32 +399,32 @@
       sticky_offsetTop = elem.offsetTop - (parseInt(Sticky.css.marginTop) || 0);
 
       // get inner sticker element
-      inner_sticker = stickyOptions.innerSticker
-        ? typeof stickyOptions.innerSticker === 'string'
-          ? document.querySelector(stickyOptions.innerSticker)
-          : stickyOptions.innerSticker
+      inner_sticker = STICKY_OPTIONS.innerSticker
+        ? typeof STICKY_OPTIONS.innerSticker === 'string'
+          ? document.querySelector(STICKY_OPTIONS.innerSticker)
+          : STICKY_OPTIONS.innerSticker
         : null;
 
       // top
-      options_top = isNaN(stickyOptions.top) && stickyOptions.top.indexOf('%') > -1
-        ? (parseFloat(stickyOptions.top) / 100) * window_height
-        : stickyOptions.top;
+      options_top = isNaN(STICKY_OPTIONS.top) && STICKY_OPTIONS.top.indexOf('%') > -1
+        ? (parseFloat(STICKY_OPTIONS.top) / 100) * window_height
+        : STICKY_OPTIONS.top;
 
       // bottom
-      options_bottom = isNaN(stickyOptions.bottom) && stickyOptions.bottom.indexOf('%') > -1
-        ? (parseFloat(stickyOptions.bottom) / 100) * window_height
-        : stickyOptions.bottom;
+      options_bottom = isNaN(STICKY_OPTIONS.bottom) && STICKY_OPTIONS.bottom.indexOf('%') > -1
+        ? (parseFloat(STICKY_OPTIONS.bottom) / 100) * window_height
+        : STICKY_OPTIONS.bottom;
 
       // calculate sticky breakpoints
       stick_top = inner_sticker
         ? inner_sticker.offsetTop
-        : stickyOptions.innerTop
-          ? stickyOptions.innerTop
+        : STICKY_OPTIONS.innerTop
+          ? STICKY_OPTIONS.innerTop
           : 0;
 
-      stick_bottom = isNaN(stickyOptions.bottomEnd) && stickyOptions.bottomEnd.indexOf('%') > -1
-        ? (parseFloat(stickyOptions.bottomEnd) / 100) * window_height
-        : stickyOptions.bottomEnd;
+      stick_bottom = isNaN(STICKY_OPTIONS.bottomEnd) && STICKY_OPTIONS.bottomEnd.indexOf('%') > -1
+        ? (parseFloat(STICKY_OPTIONS.bottomEnd) / 100) * window_height
+        : STICKY_OPTIONS.bottomEnd;
 
       top_limit = container_offsetTop - options_top + stick_top + sticky_offsetTop;
     };
@@ -456,14 +456,14 @@
 
       if (offset_top > top_limit) {
         // http://geek-and-poke.com/geekandpoke/2012/7/27/simply-explained.html
-        if (bottom_limit + options_top + (largerSticky ? options_bottom : 0) - (stickyOptions.followScroll && largerSticky ? 0 : options_top) <= offset_top + sticky_height - stick_top - ((sticky_height - stick_top > window_height - (top_limit - stick_top) && stickyOptions.followScroll) ? (((bottom_distance = sticky_height - window_height - stick_top) > 0) ? bottom_distance : 0) : 0)) { // bottom reached end
+        if (bottom_limit + options_top + (largerSticky ? options_bottom : 0) - (STICKY_OPTIONS.followScroll && largerSticky ? 0 : options_top) <= offset_top + sticky_height - stick_top - ((sticky_height - stick_top > window_height - (top_limit - stick_top) && STICKY_OPTIONS.followScroll) ? (((bottom_distance = sticky_height - window_height - stick_top) > 0) ? bottom_distance : 0) : 0)) { // bottom reached end
           Sticky.release({
             position: 'absolute',
             //top: bottom_limit - sticky_height - top_limit + stick_top + sticky_offsetTop
             bottom: elemParent_offsetTop + elemParent.offsetHeight - bottom_limit - options_top
           });
         }
-        else if (largerSticky && stickyOptions.followScroll) { // sticky is bigger than container and follows scroll
+        else if (largerSticky && STICKY_OPTIONS.followScroll) { // sticky is bigger than container and follows scroll
           if (scroll_dir === 'down') { // scroll down
             if (sticky_window_top + sticky_height + options_bottom <= window_height) { // stick on bottom
               Sticky.stick({
@@ -551,10 +551,10 @@
 
       // remove sticky class
       if (elem.classList) {
-        elem.classList.remove(stickyOptions.stickyClass);
+        elem.classList.remove(STICKY_OPTIONS.stickyClass);
       }
       else {
-        elem.className = elem.className.replace(new RegExp('(^|\\b)' + stickyOptions.stickyClass.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+        elem.className = elem.className.replace(new RegExp('(^|\\b)' + STICKY_OPTIONS.stickyClass.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
       }
 
       // reset sticky object data
@@ -582,24 +582,28 @@
 
     const resizeSticky = () => {
       // fire 'beforeResize' event
-      if (stickyOptions.onBeforeResize) {
-        stickyOptions.onBeforeResize.call(elem, stickyOptions);
+      if (STICKY_OPTIONS.onBeforeResize) {
+        STICKY_OPTIONS.onBeforeResize.call(elem, STICKY_OPTIONS);
       }
 
       // reinit sticky
       reinitSticky();
 
       // fire 'resize' event
-      if (stickyOptions.onResize) {
-        stickyOptions.onResize.call(elem, stickyOptions);
+      if (STICKY_OPTIONS.onResize) {
+        STICKY_OPTIONS.onResize.call(elem, STICKY_OPTIONS);
       }
     };
 
-    const resize_cb = !stickyOptions.resizeDebounce ? resizeSticky : Helpers.debounce(resizeSticky, stickyOptions.resizeDebounce);
+    const resize_cb = !STICKY_OPTIONS.resizeDebounce ? resizeSticky : Helpers.debounce(resizeSticky, STICKY_OPTIONS.resizeDebounce);
 
     // Method for updating options
     const Update = (options) => {
       setOptions(options);
+
+      // also update user settings
+      userSettings = Object.assign({}, userSettings, options || {});
+
       reinitSticky();
     };
 
