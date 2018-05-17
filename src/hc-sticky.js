@@ -176,8 +176,8 @@
       css: {},
       position: null, // so we don't need to check css all the time
       stick: (args = {}) => {
+        // check if element is already sticky
         if (Helpers.hasClass(elem, STICKY_OPTIONS.stickyClass)) {
-          // check if element is already sticky
           return;
         }
 
@@ -519,13 +519,18 @@
     };
 
     const initSticky = () => {
+      // check if element is visible
+      if (Helpers.getStyle(elem, 'display') === 'none') {
+        disableSticky();
+        return;
+      }
+
       // calculate stuff
       calcSticky();
 
       // check if sticky is bigger than reffering container
       if (sticky_height >= container_height) {
         disableSticky();
-
         return;
       }
 
