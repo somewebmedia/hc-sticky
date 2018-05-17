@@ -465,7 +465,7 @@
         }
         else if (largerSticky && STICKY_OPTIONS.followScroll) { // sticky is bigger than container and follows scroll
           if (scroll_dir === 'down') { // scroll down
-            if (sticky_window_top + sticky_height + options_bottom <= window_height) { // stick on bottom
+            if (Math.floor(sticky_window_top + sticky_height + options_bottom) <= window_height) { // stick on bottom
               Sticky.stick({
                 //top: window_height - sticky_height - options_bottom
                 bottom: options_bottom
@@ -479,7 +479,7 @@
             }
           }
           else { // scroll up
-            if (sticky_window_top + stick_top < 0 && Sticky.position === 'fixed') { // top reached window top
+            if (Math.ceil(sticky_window_top + stick_top) < 0 && Sticky.position === 'fixed') { // top reached window top
               Sticky.release({
                 position: 'absolute',
                 top: sticky_top - options_top - top_limit + stick_top - diff_y
