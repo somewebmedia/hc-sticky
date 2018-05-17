@@ -519,8 +519,8 @@
     };
 
     const initSticky = () => {
-      // check if element is visible
-      if (Helpers.getStyle(elem, 'display') === 'none') {
+      // check if element or it's parents are visible
+      if (elem.offsetParent === null || Helpers.getStyle(elem, 'display') === 'none') {
         disableSticky();
         return;
       }
