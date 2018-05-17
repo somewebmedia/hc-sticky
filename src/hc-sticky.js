@@ -290,10 +290,13 @@
       width: null,
       isAttached: false,
       init: () => {
-        // copy styles from element
+        // copy styles from sticky element
         for (const prop in Sticky.css) {
           Spacer.el.style[prop] = Sticky.css[prop];
         }
+
+        // just to be sure the spacer is behind everything
+        Spacer.el.style['z-index'] = '-1';
 
         const elemStyle = Helpers.getStyle(elem);
 
@@ -306,7 +309,7 @@
       },
       attach: () => {
         // insert spacer to DOM
-        elemParent.insertBefore(Spacer.el, elem.nextSibling);
+        elemParent.insertBefore(Spacer.el, elem);
         Spacer.isAttached = true;
       },
       detach: () => {
