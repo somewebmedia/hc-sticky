@@ -1,11 +1,20 @@
 {
   "name": "hc-sticky",
   "version": "2.1.7",
-  "description": "Cross-browser plugin that makes any element on your page visible while you scroll",
+  "description": "Dependency free javascript library that makes elements on your page visible while you scroll",
   "homepage": "https://github.com/somewebmedia/hc-sticky",
   "authors": [
     "Some Web Media <somewebmedia@gmail.com>"
   ],
   "license": "MIT",
-  "main": "dist/hc-sticky.js"
+  "main": "dist/hc-sticky.js",
+  "keywords": [
+    "sticky",
+    "fixed",
+    "affix",
+    "scroll",
+    "sidebar",
+    "jquery",
+    "plugin"
+  ]
 }
