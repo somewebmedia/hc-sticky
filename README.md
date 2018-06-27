@@ -37,6 +37,8 @@ const hcSticky = require('hc-sticky');
 
 Be sure to call HC-Sticky once your element is available in the DOM.
 
+### Vanilla JS
+
 ```js
 var Sticky = new hcSticky('#element', {
   stickTo: '#content'
@@ -68,7 +70,8 @@ HC Sticky has a wide range of options you can set to have a full controll over t
 | *`stickTo`* | null (parent element) | string / element object | Element that represents the reference for height instead of height of the container. |
 | *`followScroll`* | true | boolean | When set to `false`, sticky content will not move with the page if it is bigger than *Window*. |
 | *`stickyClass`* | 'sticky' | string | HTML class that will be applied to sticky element while it is attached. |
-| *`queries`* | null | object | Object containing responsive breakpoints, on which you can tell HC Sticky what to do. |
+| *`responsive`* | null | object | Object containing responsive breakpoints, on which you can tell HC Sticky what to do. |
+| *`mobileFirst`* | null | boolean | Direction of the responsive queries. |
 | *`onStart`* | null | function | Callback function fired when the element becomes attached. |
 | *`onStop`* | null | function | Callback function fired when the element stops floating. |
 | *`onBeforeResize`* | null | function | Callback function fired before sticky has been resized (happens after *Window* resize and before sticky reinit). |
@@ -80,7 +83,16 @@ HC Sticky has a wide range of options you can set to have a full controll over t
 
 Methods are used to control the plugin after initialization.
 
-Example:
+| Method | Accepts | Description |
+|---------|---------|--------------|
+| *`options`* | string | Returns current settings, or a specific setting if you specify it. |
+| *`update`* | object | Updates the settings with the new ones. |
+| *`refresh`* | N/A | Recalculates sticky size and position. Useful after altering DOM elements inside sticky. |
+| *`detach`* | N/A | Detaches the HC-Sticky from element, preventing it from running. |
+| *`attach`* | N/A | Attaches the HC-Sticky back to the element. |
+| *`destroy`* | N/A | Completely destroys HC-Sticky and reverts element to original state. |
+
+### Vanilla JS
 
 ```js
 var Sticky = new hcSticky('#element', {
@@ -92,17 +104,22 @@ Sticky.update({
 });
 ```
 
-| Method | Accepts | Description |
-|---------|---------|--------------|
-| *`options`* | string | Returns current settings, or a specific setting if you specify it. |
-| *`update`* | object | Updates the settings with the new ones. |
-| *`reinit`* | N/A | Recalculates sticky size and position. Useful after altering DOM elements inside sticky. |
-| *`detach`* | N/A | Detaches the HC-Sticky from element, preventing it from running. |
-| *`attach`* | N/A | Attaches the HC-Sticky back to the element. |
-| *`destroy`* | N/A | Completely destroys HC-Sticky and reverts element to original state. |
+### jQuery
+
+```js
+var $sticky = $('#element');
+
+$sticky.hcSticky({
+  stickTo: '#content'
+});
+
+$sticky.hcSticky('update', {
+  top: 20
+});
+```
 
 
-## Building
+## Dev Building
 
 This package comes with [Gulp](https://gulpjs.com/). The following tasks are available:
 
