@@ -101,7 +101,7 @@
     };
 
     const getOptions = (option) => {
-      return option ? STICKY_OPTIONS.option : Object.assign({}, STICKY_OPTIONS);
+      return option ? STICKY_OPTIONS[option] : Object.assign({}, STICKY_OPTIONS);
     };
 
     const isDisabled = () => {
