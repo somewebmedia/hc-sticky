@@ -64,11 +64,6 @@ gulp.task('demo-html', () => {
   });
 
   return gulp.src(demos)
-    .pipe(template({
-      style_path: 'demos.css',
-      sticky_path: '../../dist/hc-sticky.js',
-      browserify_path: 'browserify.js'
-    }))
     .pipe(gulp.dest(demo_dest));
 });
 
@@ -86,6 +81,11 @@ gulp.task('demo-browserify', () => {
       ]
     }))
     .pipe(argv.dev ? through.obj() : uglify())
+    .pipe(gulp.dest(demo_dest));
+});
+
+gulp.task('demo-js', ['demo-browserify'], () => {
+  return gulp.src(['./dist/hc-sticky.js'])
     .pipe(gulp.dest(demo_dest));
 });
 
@@ -121,7 +121,6 @@ const compileHtml = (openHtml) => {
   });
 
   const template_options = {
-    style_path: 'style.css',
     demos: `<ul>${demos_content}</ul>`
   };
 
@@ -148,11 +147,11 @@ gulp.task('main-html', () => {
 
 /* Gulp Tasks */
 
-gulp.task('default', ['js', 'demo-sass', 'demo-html', 'demo-browserify', 'open-html']);
+gulp.task('default', ['js', 'demo-sass', 'demo-html', 'demo-js', 'open-html']);
 
-gulp.task('watch', ['js', 'demo-sass', 'demo-html', 'demo-browserify', 'open-html'], () => {
-  gulp.watch(['./src/*.js'], ['js', 'demo-browserify']);
-  gulp.watch(['./demo/src/*.js'], ['demo-browserify']);
+gulp.task('watch', ['js', 'demo-sass', 'demo-html', 'demo-js', 'open-html'], () => {
+  gulp.watch(['./src/*.js'], ['js', 'demo-js']);
+  gulp.watch(['./demo/src/*.js'], ['demo-js']);
   gulp.watch(['./demo/src/*.scss'], ['demo-sass']);
   gulp.watch(['./demo/src/*.html'], ['demo-html', 'main-html']);
 });
