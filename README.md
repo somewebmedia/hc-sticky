@@ -1,7 +1,7 @@
 HC-Sticky
 =========
 
-Cross-browser plugin that makes any element on your page visible while you scroll.
+Cross-browser javascript plugin that makes any element on your page visible while you scroll.
 
 
 ## Quick start
