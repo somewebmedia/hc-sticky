@@ -38,14 +38,22 @@
     stickyClass: 'sticky',
     stickTo: null,
     followScroll: true,
-    queries: null,
-    queryFlow: 'down',
+    responsive: null,
+    mobileFirst: false,
     onStart: null,
     onStop: null,
     onBeforeResize: null,
     onResize: null,
     resizeDebounce: 100,
-    disable: false
+    disable: false,
+
+    // deprecated
+    queries: null,
+    queryFlow: 'down'
+  };
+
+  const deprecated = (what, instead, type) => {
+    console.log('%c! HC Sticky:' + '%c '+what + '%c '+type+' is now deprecated and will be removed. Use' + '%c '+instead + '%c instead.', 'color: red', 'color: darkviolet', 'color: black', 'color: darkviolet', 'color: black');
   };
 
   const document = window.document;
@@ -59,6 +67,14 @@
     // check if element exist
     if (!elem) {
       return false;
+    }
+
+    if (userSettings.queries) {
+      deprecated('queries', 'responsive', 'option');
+    }
+
+    if (userSettings.queryFlow) {
+      deprecated('queryFlow', 'mobileFirst', 'option');
     }
 
     let STICKY_OPTIONS = {};
@@ -85,7 +101,7 @@
     };
 
     const getOptions = (option) => {
-      return option ? (STICKY_OPTIONS.option || null) : Object.assign({}, STICKY_OPTIONS);
+      return option ? STICKY_OPTIONS.option : Object.assign({}, STICKY_OPTIONS);
     };
 
     const isDisabled = () => {
@@ -95,13 +111,12 @@
     const applyQueries = () => {
       if (STICKY_OPTIONS.queries) {
         const window_width = window.innerWidth;
-        const queryFlow = STICKY_OPTIONS.queryFlow;
-        const queries = STICKY_OPTIONS.queries;
+        const queries = STICKY_OPTIONS.responsive || STICKY_OPTIONS.queries;
 
         // reset settings
         resetOptions(userSettings);
 
-        if (queryFlow === 'up') {
+        if (STICKY_OPTIONS.mobileFirst) {
           for (const width in queries) {
             if (window_width >= width && !Helpers.isEmptyObject(queries[width])) {
               setOptions(queries[width]);
@@ -216,7 +231,7 @@
 
         // fire 'start' event
         if (STICKY_OPTIONS.onStart) {
-          STICKY_OPTIONS.onStart.call(elem, STICKY_OPTIONS);
+          STICKY_OPTIONS.onStart.call(elem, Object.assign({}, STICKY_OPTIONS));
         }
       },
       release: (args = {}) => {
@@ -278,7 +293,7 @@
 
         // fire 'stop' event
         if (STICKY_OPTIONS.onStop) {
-          STICKY_OPTIONS.onStop.call(elem, STICKY_OPTIONS);
+          STICKY_OPTIONS.onStop.call(elem, Object.assign({}, STICKY_OPTIONS));
         }
       }
     };
@@ -591,7 +606,7 @@
     const resizeSticky = () => {
       // fire 'beforeResize' event
       if (STICKY_OPTIONS.onBeforeResize) {
-        STICKY_OPTIONS.onBeforeResize.call(elem, STICKY_OPTIONS);
+        STICKY_OPTIONS.onBeforeResize.call(elem, Object.assign({}, STICKY_OPTIONS));
       }
 
       // reinit sticky
@@ -599,7 +614,7 @@
 
       // fire 'resize' event
       if (STICKY_OPTIONS.onResize) {
-        STICKY_OPTIONS.onResize.call(elem, STICKY_OPTIONS);
+        STICKY_OPTIONS.onResize.call(elem, Object.assign({}, STICKY_OPTIONS));
       }
     };
 
@@ -648,11 +663,23 @@
     };
 
     this.options = getOptions;
-    this.reinit = reinitSticky;
+    this.refresh = reinitSticky;
     this.update = Update;
     this.attach = Attach;
     this.detach = Detach;
     this.destroy = Destroy;
+
+    // jQuery methods
+    this.triggerMethod = (method, options) => {
+      if (typeof this[method] === 'function') {
+        this[method](options);
+      }
+    };
+
+    this.reinit = () => {
+      deprecated('reinit', 'refresh', 'method');
+      reinitSticky();
+    };
 
     // init settings
     setOptions(userSettings);
