@@ -1,7 +1,8 @@
 HC-Sticky
 =========
 
-Dependency free javascript library that makes any element on your page visible while you scroll. Check out the [demos](http://somewebmedia/hc-sticky).
+Dependency free javascript library that makes any element on your page visible while you scroll.
+Check out the [demos](http://somewebmedia.com/hc-sticky).
 
 
 ## Quick start
