@@ -5,8 +5,8 @@
   <meta charset="UTF-8">
   <title>Inner Sticker</title>
   <meta name="description" content="Use `innerSticker` option to stick at a certain element. In this example, sticky will stick to the second box inside the sidebar only when you go *up*. When you go down it sticks to the bottom of the sidebar.">
-  <link rel="stylesheet" href="<%= style_path %>" type="text/css" media="all">
-  <script type="text/javascript" src="<%= sticky_path %>"></script>
+  <link rel="stylesheet" href="<%= style_path %>">
+  <script src="<%= sticky_path %>"></script>
 </head>
 
 <body class="demo_4">
@@ -148,7 +148,7 @@
     var Sticky = new hcSticky('aside', {
       stickTo: 'main',
       innerSticker: '#stickMe',
-      queries: {
+      responsive: {
         980: {
           disable: true
         }

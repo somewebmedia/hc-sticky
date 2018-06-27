@@ -5,8 +5,8 @@
   <meta charset="UTF-8">
   <title>Default - smaller than window</title>
   <meta name="description" content="Page with a sidebar that is smaller than window height. Sidebar should stick to the top of the page when scrolled down or up.">
-  <link rel="stylesheet" href="demos.css" type="text/css" media="all">
-  <script type="text/javascript" src="../../dist/hc-sticky.js"></script>
+  <link rel="stylesheet" href="demos.css">
+  <script src="../../dist/hc-sticky.js"></script>
 </head>
 
 <body class="demo_2">
@@ -125,7 +125,7 @@
 
     var Sticky = new hcSticky('aside', {
       stickTo: 'main',
-      queries: {
+      responsive: {
         980: {
           disable: true
         }

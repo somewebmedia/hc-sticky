@@ -5,8 +5,8 @@
   <meta charset="UTF-8">
   <title>Inner Top not following scroll</title>
   <meta name="description" content="Use `innerTop` option to stick after a certain distance, and `followScroll:false` so the sidebar doesn't follow the scroll once attached. In this example, sticky will stick 200px from top inside the sidebar when you go *down* or *up*.">
-  <link rel="stylesheet" href="demos.css" type="text/css" media="all">
-  <script type="text/javascript" src="../../dist/hc-sticky.js"></script>
+  <link rel="stylesheet" href="demos.css">
+  <script src="../../dist/hc-sticky.js"></script>
 </head>
 
 <body class="demo_6">
@@ -149,10 +149,9 @@
       stickTo: 'main',
       innerTop: 200,
       followScroll: false,
-      queries: {
+      responsive: {
         980: {
-          disable: true,
-          stickTo: 'body'
+          disable: true
         }
       }
     });

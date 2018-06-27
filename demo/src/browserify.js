@@ -1,12 +1,13 @@
 'use strict';
 
-// it should actually be loaded like this:
+// it should actually be loaded as a dependency like this
 // const hcSticky = require('hc-sticky');
+
 const hcSticky = require('../../dist/hc-sticky.js');
 
 const Sticky = new hcSticky('aside', {
   stickTo: 'main',
-  queries: {
+  responsive: {
     980: {
       disable: true
     }

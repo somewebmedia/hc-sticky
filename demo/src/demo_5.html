@@ -5,8 +5,8 @@
   <meta charset="UTF-8">
   <title>Inner Sticker not following scroll</title>
   <meta name="description" content="Use `innerSticker` option to stick at a certain element, and `followScroll:false` so the sidebar doesn't follow the scroll once attached. In this example, sticky will stick to the second box inside the sidebar when you go *down* or *up*.">
-  <link rel="stylesheet" href="<%= style_path %>" type="text/css" media="all">
-  <script type="text/javascript" src="<%= sticky_path %>"></script>
+  <link rel="stylesheet" href="<%= style_path %>">
+  <script src="<%= sticky_path %>"></script>
 </head>
 
 <body class="demo_5">
@@ -149,7 +149,7 @@
       stickTo: 'main',
       innerSticker: '#stickMe',
       followScroll: false,
-      queries: {
+      responsive: {
         980: {
           disable: true
         }
