@@ -37,7 +37,7 @@ const hcSticky = require('hc-sticky');
 
 Be sure to call HC-Sticky once your element is available in the DOM.
 
-### Vanilla JS
+#### Vanilla JS
 
 ```js
 var Sticky = new hcSticky('#element', {
@@ -92,7 +92,7 @@ Methods are used to control the plugin after initialization.
 | *`attach`* | N/A | Attaches the HC-Sticky back to the element. |
 | *`destroy`* | N/A | Completely destroys HC-Sticky and reverts element to original state. |
 
-### Vanilla JS
+#### Vanilla JS
 
 ```js
 var Sticky = new hcSticky('#element', {
@@ -104,7 +104,7 @@ Sticky.update({
 });
 ```
 
-### jQuery
+#### jQuery
 
 ```js
 var $sticky = $('#element');
