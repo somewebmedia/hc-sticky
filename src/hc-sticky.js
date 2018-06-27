@@ -667,25 +667,28 @@
   // jQuery Plugin
   if (typeof window.jQuery !== 'undefined') {
     const $ = window.jQuery;
+    const namespace = 'hcSticky';
 
     $.fn.extend({
-      hcSticky: function(options) {
+      hcSticky: function(args, update) {
         // check if selected element exist
-        if (!this.length) {
-          return this;
+        if (!this.length) return this;
+
+        // we need to return options
+        if (args === 'options') {
+          return $.data(this.get(0), namespace).options();
         }
 
         return this.each(function() {
-          const namespace = 'hcSticky';
           let instance = $.data(this, namespace);
 
           if (instance) {
-            // already created
-            instance.update(options);
+            // already created, trigger method
+            instance.triggerMethod(args, update);
           }
           else {
             // create new instance
-            instance = new hcSticky(this, options);
+            instance = new hcSticky(this, args);
             $.data(this, namespace, instance);
           }
         });
