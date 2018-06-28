@@ -109,33 +109,34 @@
     };
 
     const applyQueries = () => {
-      if (STICKY_OPTIONS.queries || STICKY_OPTIONS.responsive) {
+      const mediaQueries = STICKY_OPTIONS.responsive || STICKY_OPTIONS.queries;
+
+      if (mediaQueries) {
         const window_width = window.innerWidth;
-        const queries = STICKY_OPTIONS.responsive || STICKY_OPTIONS.queries;
 
         // reset settings
         resetOptions(userSettings);
 
         if (STICKY_OPTIONS.mobileFirst) {
-          for (const width in queries) {
-            if (window_width >= width && !Helpers.isEmptyObject(queries[width])) {
-              setOptions(queries[width]);
+          for (const width in mediaQueries) {
+            if (window_width >= width && !Helpers.isEmptyObject(mediaQueries[width])) {
+              setOptions(mediaQueries[width]);
             }
           }
         }
         else {
-          const queries_arr = [];
+          const queriesArr = [];
 
           // convert to array so we can reverse loop it
-          for (const b in STICKY_OPTIONS.queries) {
+          for (const b in mediaQueries) {
             const q = {};
 
-            q[b] = queries[b];
-            queries_arr.push(q);
+            q[b] = mediaQueries[b];
+            queriesArr.push(q);
           }
 
-          for (let i = queries_arr.length - 1; i >= 0; i--) {
-            const query = queries_arr[i];
+          for (let i = queriesArr.length - 1; i >= 0; i--) {
+            const query = queriesArr[i];
             const breakpoint = Object.keys(query)[0];
 
             if (window_width <= breakpoint && !Helpers.isEmptyObject(query[breakpoint])) {
