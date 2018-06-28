@@ -1,6 +1,6 @@
 {
   "name": "hc-sticky",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "Dependency free javascript library that makes elements on your page visible while you scroll",
   "main": "dist/hc-sticky.js",
   "author": {
