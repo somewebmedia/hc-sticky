@@ -109,7 +109,7 @@
     };
 
     const applyQueries = () => {
-      if (STICKY_OPTIONS.queries) {
+      if (STICKY_OPTIONS.queries || STICKY_OPTIONS.responsive) {
         const window_width = window.innerWidth;
         const queries = STICKY_OPTIONS.responsive || STICKY_OPTIONS.queries;
 
