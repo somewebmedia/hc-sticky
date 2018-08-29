@@ -72,12 +72,15 @@ HC Sticky has a wide range of options you can set to have a full controll over t
 | *`followScroll`* | true | boolean | When set to `false`, sticky content will not move with the page if it is bigger than *Window*. |
 | *`stickyClass`* | 'sticky' | string | HTML class that will be applied to sticky element while it is attached. |
 | *`responsive`* | null | object | Object containing responsive breakpoints, on which you can tell HC Sticky what to do. |
-| *`mobileFirst`* | null | boolean | Direction of the responsive queries. |
+| *`mobileFirst`* | false | boolean | Direction of the responsive queries. |
+| *`disable`* | false | boolean | Disable the plugin. Usualy used with responsive object. |
 | *`onStart`* | null | function | Callback function fired when the element becomes attached. |
 | *`onStop`* | null | function | Callback function fired when the element stops floating. |
 | *`onBeforeResize`* | null | function | Callback function fired before sticky has been resized (happens after *Window* resize and before sticky reinit). |
 | *`onResize`* | null | function | Callback function fired after sticky has been resized (happens after *Window* resize and sticky reinit). |
 | *`resizeDebounce`* | 100 | int | Limit the rate at which the HC Sticky can fire on window resize. |
+
+More on how to use the responsive object [here](https://github.com/somewebmedia/hc-sticky/issues/55#issuecomment-416826958).
 
 
 ### Methods
