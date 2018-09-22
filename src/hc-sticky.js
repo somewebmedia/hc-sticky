@@ -147,7 +147,7 @@
       }
     };
 
-    // our helper function for getting necesery styles
+    // our helper function for getting necessary styles
     const getStickyCss = (el) => {
       const cascadedStyle = Helpers.getCascadedStyle(el);
       const computedStyle = Helpers.getStyle(el);
@@ -454,7 +454,7 @@
     let scroll_dir;
 
     const runSticky = () => {
-      // always calculate sticky and container height in case of change
+      // always calculate sticky and container height in case of DOM change
       sticky_height = calcStickyHeight();
       container_height = calcContainerHeight();
 
