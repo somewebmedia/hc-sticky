@@ -464,7 +464,7 @@
       largerSticky = sticky_height > window_height;
 
       const offset_top = window.pageYOffset || document.documentElement.scrollTop;
-      const sticky_top = Math.round(Helpers.offset(elem).top);
+      const sticky_top = Helpers.offset(elem).top;
       const sticky_window_top = sticky_top - offset_top;
       let bottom_distance;
 
@@ -484,7 +484,8 @@
         }
         else if (largerSticky && STICKY_OPTIONS.followScroll) { // sticky is bigger than container and follows scroll
           if (scroll_dir === 'down') { // scroll down
-            if (Math.floor(sticky_window_top + sticky_height + options_bottom) <= window_height) { // stick on bottom
+            if (sticky_window_top + sticky_height + options_bottom <= window_height + .9) { // stick on bottom
+              // fix subpixel precision with adding .9 pixels
               Sticky.stick({
                 //top: window_height - sticky_height - options_bottom
                 bottom: options_bottom
