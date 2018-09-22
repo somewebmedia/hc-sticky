@@ -306,6 +306,8 @@
       width: null,
       isAttached: false,
       init: () => {
+        Spacer.el.className = 'sticky-spacer';
+
         // copy styles from sticky element
         for (const prop in Sticky.css) {
           Spacer.el.style[prop] = Sticky.css[prop];
