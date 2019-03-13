@@ -3,13 +3,13 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Inner Sticker not following scroll</title>
-  <meta name="description" content="Use `innerSticker` option to stick at a certain element, and `followScroll:false` so the sidebar doesn't follow the scroll once attached. In this example, sticky will stick to the second box inside the sidebar when you go *down* or *up*.">
-  <link rel="stylesheet" href="demos.css">
+  <title>Default - bigger than window</title>
+  <meta name="description" content="Page with a sidebar that is bigger than window height. Sidebar should stick to the bottom of the page when scrolled down, and to the top of the page when scrolled up.">
+  <link rel="stylesheet" href="demo.css">
   <script src="hc-sticky.js"></script>
 </head>
 
-<body class="demo_5">
+<body class="demo demo_1">
 
   <header>
     <figure></figure>
@@ -106,22 +106,13 @@
         </ul>
       </div>
 
-      <ul id="stickMe">
+      <ul>
         <li></li>
         <li></li>
         <li></li>
         <li></li>
         <li></li>
       </ul>
-
-      <div>
-        <ul>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-        </ul>
-      </div>
 
       <div>
         <ul>
@@ -147,8 +138,6 @@
 
     var Sticky = new hcSticky('aside', {
       stickTo: 'main',
-      innerSticker: '#stickMe',
-      followScroll: false,
       responsive: {
         980: {
           disable: true

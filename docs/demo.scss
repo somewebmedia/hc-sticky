@@ -1,0 +1,534 @@
+
+// Mixins
+
+@mixin stripe {
+  height: 20px;
+  border-radius: 3px;
+  background: #fff;
+  display: inline-block;
+  vertical-align: middle;
+
+  &:last-child {
+    margin: 0;
+  }
+}
+
+@mixin clearfix {
+  &::before,
+  &::after {
+    content: "";
+    display: block;
+    height: 0;
+    overflow: hidden
+  }
+  &::after {
+    clear: both
+  }
+  & {
+    zoom:1
+  }
+}
+
+// Reset
+
+html, body, body div, span, object, iframe, h1, h2, h3, h4, h5, h6, a, p, blockquote, em, img, strong, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, caption, article, aside, figure, footer, header, hgroup, nav, section, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+article, aside, figure, footer, header, nav, section, div {
+  display: block;
+  position: relative;
+}
+
+// Index
+
+$red: rgba(255,104,115,1);
+
+body.home {
+  background: #f1f5f8;
+  color: #2E3444;
+  text-align: center;
+  font-family: 'Lato', sans-serif;
+  margin: 0;
+  padding: 0;
+
+  a {
+    background: $red;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 2px;
+    padding: 0 10px;
+    font-size: 13px;
+    text-transform: uppercase;
+    display: inline-block;
+    margin-bottom: 5px;
+    backface-visibility: hidden;
+    transition: opacity .15s ease;
+
+    &:hover {
+      opacity: .8;
+    }
+  }
+
+  h1 {
+    margin: 50px 0 0;
+    font-size: 2.5em;
+    font-weight: 900;
+  }
+
+  h2 {
+    font-size: 26px;
+    line-height: 34px;
+    font-weight: 300;
+    letter-spacing: 1px;
+    display: block;
+    margin: 0;
+    cursor: pointer;
+    color: $red;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-touch-callout: none;
+    user-select: none;
+  }
+
+  h3 {
+    padding: 0;
+    font-weight: 400;
+  }
+
+  p {
+    font-size: 17px;
+    line-height: 26px;
+    position: relative;
+    overflow: hidden;
+    max-height: 1000em;
+    margin: 10px 0 14px;
+    z-index: 2;
+    font-weight: 300;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    code {
+      background: #f5f5f5;
+      border-radius: 3px;
+      padding: 2px 5px;
+      font-size: 15px;
+      display: inline-block;
+      line-height: 1;
+    }
+  }
+
+  ul {
+    list-style: none;
+    padding: 50px 30px;
+    margin: 0 auto;
+    max-width: 720px;
+
+    li {
+      position: relative;
+      padding: 0;
+      margin: 0;
+      padding: 18px 25px;
+      border-top: 1px dotted rgba(220,231,235,1);
+      text-align: left;
+      background: #fff;
+
+      &:first-of-type {
+        border-top: none;
+      }
+
+      i {
+        position: absolute;
+        margin-top: 14px;
+        right: 30px;
+
+        &::before, &::after {
+          content: "";
+          position: absolute;
+          width: 3px;
+          height: 9px;
+          background: $red;
+        }
+
+        &::before {
+          transform: translate(-2px, 0) rotate(45deg);
+        }
+
+        &::after {
+          transform: translate(2px, 0) rotate(-45deg);
+        }
+      }
+
+      input[type="checkbox"] {
+        position: absolute;
+        cursor: pointer;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        opacity: 0;
+        padding: 0;
+        margin: 0;
+
+        &:checked {
+          & ~ p {
+            margin: 0;
+            max-height: 0;
+            opacity: 0;
+          }
+
+          & ~ i {
+            &::before {
+              transform: translate(2px, 0) rotate(45deg);
+            }
+
+            &::after {
+              transform: translate(-2px, 0) rotate(-45deg);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  #swm {
+    background: #2E3444;
+    margin-bottom: 20px;
+    font-weight: 300;
+  }
+}
+
+// Demo Styles
+
+body.demo {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 100vh;
+
+  main {
+    @include clearfix;
+    overflow: hidden;
+    clear: both;
+    flex: 1 0 auto;
+    background: #f1f5f8;
+  }
+
+  header,
+  footer {
+    background: #979c9c;
+    height: 80px;
+    line-height: 80px;
+    flex: none;
+  }
+
+  header {
+
+    figure {
+      width: 50px;
+      height: 50px;
+      margin-left: 40px;
+      border-radius: 100%;
+      overflow: hidden;
+      background: #fff;
+      vertical-align: middle;
+      display: inline-block;
+    }
+
+    nav {
+      display: inline-block;
+      margin-left: 60px;
+
+      li {
+        @include stripe;
+        width: 80px;
+        margin-right: 20px;
+      }
+    }
+  }
+
+  footer {
+    text-align: center;
+
+    span {
+      @include stripe;
+      width: 70px;
+      margin-right: 20px;
+    }
+  }
+
+  article {
+    padding: 40px;
+    box-sizing: border-box;
+
+    @media screen and (min-width: 980px) {
+      float: left;
+      width: 100%;
+      padding: 40px 340px 40px 40px;
+    }
+
+    figure {
+      @include stripe;
+      width: 30%;
+      height: 260px;
+      overflow: hidden;
+
+      &::before,
+      &::after {
+        content: "";
+        display: block;
+        width: 300px;
+        height: 300px;
+        background: rgba(0,0,0,.05);
+        transform: rotate(45deg);
+        position: absolute;
+        border-radius: 4px;
+      }
+
+      &::before {
+        top: 80%;
+        left: -30%;
+      }
+
+      &::after {
+        top: 60%;
+        left: 20%;
+      }
+    }
+
+    div {
+      width: 70%;
+      box-sizing: border-box;
+    }
+
+    p {
+      @include stripe;
+      display: block;
+      margin-bottom: 40px;
+    }
+
+    p,
+    figure {
+      background: #e7edf2;
+    }
+
+    section {
+      @include clearfix;
+      margin-bottom: 40px;
+      box-sizing: border-box;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      &:nth-child(odd) {
+
+        figure,
+        div {
+          float: left;
+        }
+
+        div {
+          padding-left: 40px;
+        }
+      }
+
+      &:nth-child(even) {
+
+        figure,
+        div {
+          float: right;
+        }
+
+        div {
+          padding-right: 40px;
+        }
+      }
+    }
+  }
+
+  aside {
+    background: #27282a;
+    box-sizing: border-box;
+
+    @media screen and (min-width: 980px) {
+      width: 300px;
+      margin-left: -300px;
+      float: left;
+    }
+
+    div,
+    ul {
+      padding: 40px;
+    }
+
+    div {
+      background: #95ad5a;
+      text-align: center;
+
+      &:nth-of-type(2) {
+        background: #c15134;
+
+        li {
+          background: #d36245;
+        }
+      }
+
+      &:nth-of-type(3) {
+        background: #f2e6cd;
+
+        li {
+          background: #ded3bc;
+        }
+      }
+
+      h3 {
+        @include stripe;
+        display: block;
+        height: 30px;
+        margin-bottom: 40px;
+      }
+
+      ul {
+        padding: 0;
+      }
+
+      li {
+        display: block;
+        background: #819947;
+        margin-left: auto !important;
+        margin-right: auto !important;
+      }
+    }
+
+    li {
+      @include stripe;
+      background: #495055;
+      display: block;
+      margin-bottom: 40px;
+
+      &:nth-child(1) {
+        width: 65%;
+      }
+
+      &:nth-child(2) {
+        width: 78%;
+      }
+
+      &:nth-child(3) {
+        width: 33%;
+      }
+
+      &:nth-child(4) {
+        width: 55%;
+      }
+
+      &:nth-child(5) {
+        width: 62%;
+      }
+    }
+  }
+}
+
+// Demo 3
+
+.demo_3 {
+
+  article {
+    padding: 0;
+
+    &:nth-child(1) {
+      background: #c15134;
+
+      figure, p {
+        background: #d36245;
+      }
+    }
+
+    &:nth-child(2) {
+      background: #f2e6cd;
+
+      figure, p {
+        background: #ded3bc;
+      }
+    }
+
+    &:nth-child(3) {
+      background: #93a748;
+
+      figure, p {
+        background: #84983a;
+      }
+    }
+
+    &:nth-child(4) {
+      background: #979c9c;
+
+      figure, p {
+        background: #a4a9a9;
+      }
+    }
+
+    &:nth-child(odd) {
+
+      figure,
+      div {
+        float: left;
+      }
+
+      div {
+        padding-left: 40px;
+      }
+    }
+
+    &:nth-child(even) {
+
+      figure,
+      div {
+        float: right;
+      }
+
+      div {
+        padding-right: 40px;
+      }
+    }
+  }
+
+  section {
+    max-width: 1000px;
+    padding: 20px;
+    min-height: 100vh;
+    margin: 0 auto;
+
+    @media screen and (min-width: 640px) {
+      padding: 40px;
+    }
+
+    @media screen and (min-width: 1024px) {
+      padding: 60px;
+    }
+
+    @media screen and (max-width: 640px) {
+      figure {
+        width: 45%;
+      }
+
+      div {
+        width: 55%;
+      }
+    }
+  }
+}

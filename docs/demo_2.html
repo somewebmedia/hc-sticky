@@ -3,17 +3,30 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Multiple Stickies</title>
-  <meta name="description" content="Nice example showing multiple stickies on one page.">
-  <link rel="stylesheet" href="demos.css">
+  <title>Default - smaller than window</title>
+  <meta name="description" content="Page with a sidebar that is smaller than window height. Sidebar should stick to the top of the page when scrolled down or up.">
+  <link rel="stylesheet" href="demo.css">
   <script src="hc-sticky.js"></script>
 </head>
 
-<body class="demo_3">
+<body class="demo demo_2">
+
+  <header>
+    <figure></figure>
+    <nav>
+      <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+    </nav>
+  </header>
 
   <main>
 
     <article>
+
       <section>
         <figure></figure>
         <div>
@@ -24,75 +37,100 @@
           <p></p>
         </div>
       </section>
+
+      <section>
+        <figure></figure>
+        <div>
+          <p></p>
+          <p></p>
+          <p></p>
+          <p></p>
+          <p></p>
+        </div>
+      </section>
+
+      <section>
+        <figure></figure>
+        <div>
+          <p></p>
+          <p></p>
+          <p></p>
+          <p></p>
+          <p></p>
+        </div>
+      </section>
+
+      <section>
+        <figure></figure>
+        <div>
+          <p></p>
+          <p></p>
+          <p></p>
+          <p></p>
+          <p></p>
+        </div>
+      </section>
+
+      <section>
+        <figure></figure>
+        <div>
+          <p></p>
+          <p></p>
+          <p></p>
+          <p></p>
+          <p></p>
+        </div>
+      </section>
+
+      <section>
+        <figure></figure>
+        <div>
+          <p></p>
+          <p></p>
+          <p></p>
+          <p></p>
+          <p></p>
+        </div>
+      </section>
+
     </article>
 
-    <article>
-      <section>
-        <figure></figure>
-        <div>
-          <p></p>
-          <p></p>
-          <p></p>
-          <p></p>
-          <p></p>
-        </div>
-      </section>
-    </article>
+    <aside>
 
-    <article>
-      <section>
-        <figure></figure>
-        <div>
-          <p></p>
-          <p></p>
-          <p></p>
-          <p></p>
-          <p></p>
-        </div>
-      </section>
-    </article>
+      <div>
+        <h3></h3>
+        <ul>
+          <li></li>
+          <li></li>
+        </ul>
+      </div>
 
-    <article>
-      <section>
-        <figure></figure>
-        <div>
-          <p></p>
-          <p></p>
-          <p></p>
-          <p></p>
-          <p></p>
-        </div>
-      </section>
-    </article>
+      <ul>
+        <li></li>
+        <li></li>
+      </ul>
 
-    <article>
-      <section>
-        <figure></figure>
-        <div>
-          <p></p>
-          <p></p>
-          <p></p>
-          <p></p>
-          <p></p>
-        </div>
-      </section>
-    </article>
+    </aside>
 
   </main>
+
+  <footer>
+    <span></span>
+    <span></span>
+    <span></span>
+  </footer>
 
   <script>
     "use strict";
 
-    var elements = document.getElementsByTagName('figure');
-
-    for (var i = 0; i < elements.length; i++) {
-      new hcSticky(elements[i], {
-        stickTo: elements[i].parentNode,
-        top: 20,
-        bottomEnd: 30
-      });
-    }
-
+    var Sticky = new hcSticky('aside', {
+      stickTo: 'main',
+      responsive: {
+        980: {
+          disable: true
+        }
+      }
+    });
   </script>
 
 </body>

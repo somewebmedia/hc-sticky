@@ -52,13 +52,29 @@
     queryFlow: 'down'
   };
 
-  const deprecated = (what, instead, type) => {
-    console.log('%c! HC Sticky:' + '%c '+what + '%c '+type+' is now deprecated and will be removed. Use' + '%c '+instead + '%c instead.', 'color: red', 'color: darkviolet', 'color: black', 'color: darkviolet', 'color: black');
-  };
+  const deprecated = (() => {
+    const pluginName = 'HC Sticky';
+
+    return (what, instead, type) => {
+      console.warn(
+        '%c' + pluginName + ':'
+        + '%c ' + type
+        + "%c '"+ what + "'"
+        + '%c is now deprecated and will be removed. Use'
+        + "%c '" + instead + "'"
+        + '%c instead.',
+        'color: #fa253b',
+        'color: default',
+        'color: #5595c6',
+        'color: default',
+        'color: #5595c6',
+        'color: default');
+    };
+  })();
 
   const document = window.document;
 
-  const hcSticky = function(elem, userSettings) {
+  const hcSticky = function(elem, userSettings = {}) {
     // use querySeletor if string is passed
     if (typeof elem === 'string') {
       elem = document.querySelector(elem);

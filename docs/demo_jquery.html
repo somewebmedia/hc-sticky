@@ -3,13 +3,32 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Inner Sticker</title>
-  <meta name="description" content="Use `innerSticker` option to stick at a certain element. In this example, sticky will stick to the second box inside the sidebar only when you go *up*. When you go down it sticks to the bottom of the sidebar.">
-  <link rel="stylesheet" href="demos.css">
+  <title>jQuery test</title>
+  <meta name="description" content="HC-Sticky called with jQuery.">
+  <link rel="stylesheet" href="demo.css">
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script src="hc-sticky.js"></script>
+  <script>
+    "use strict";
+
+    (function($) {
+      $(document).ready(function() {
+        var $sticky = $('aside');
+
+        $sticky.hcSticky({
+          stickTo: 'main',
+          responsive: {
+            980: {
+              disable: true
+            }
+          }
+        });
+      });
+    })(jQuery);
+  </script>
 </head>
 
-<body class="demo_4">
+<body class="demo demo_1">
 
   <header>
     <figure></figure>
@@ -106,22 +125,13 @@
         </ul>
       </div>
 
-      <ul id="stickMe">
+      <ul>
         <li></li>
         <li></li>
         <li></li>
         <li></li>
         <li></li>
       </ul>
-
-      <div>
-        <ul>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-        </ul>
-      </div>
 
       <div>
         <ul>
@@ -141,20 +151,6 @@
     <span></span>
     <span></span>
   </footer>
-
-  <script>
-    "use strict";
-
-    var Sticky = new hcSticky('aside', {
-      stickTo: 'main',
-      innerSticker: '#stickMe',
-      responsive: {
-        980: {
-          disable: true
-        }
-      }
-    });
-  </script>
 
 </body>
 </html>
