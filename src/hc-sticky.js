@@ -567,7 +567,7 @@
       calcSticky();
 
       // check if sticky is bigger than reffering container
-      if (sticky_height >= container_height) {
+      if (sticky_height > container_height) {
         disableSticky();
         return;
       }
