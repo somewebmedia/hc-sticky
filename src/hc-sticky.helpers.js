@@ -72,64 +72,6 @@
     };
   }
 
-  /*
-   * https://github.com/desandro/eventie
-   */
-  const event = (() => {
-    var docElem = document.documentElement;
-
-    var bind = function() {};
-
-    function getIEEvent( obj ) {
-      var event = window.event;
-      // add event.target
-      event.target = event.target || event.srcElement || obj;
-      return event;
-    }
-
-    if ( docElem.addEventListener ) {
-      bind = function( obj, type, fn ) {
-        obj.addEventListener( type, fn, false );
-      };
-    } else if ( docElem.attachEvent ) {
-      bind = function( obj, type, fn ) {
-        obj[ type + fn ] = fn.handleEvent ?
-          function() {
-            var event = getIEEvent( obj );
-            fn.handleEvent.call( fn, event );
-          } :
-          function() {
-            var event = getIEEvent( obj );
-            fn.call( obj, event );
-          };
-        obj.attachEvent( "on" + type, obj[ type + fn ] );
-      };
-    }
-
-    var unbind = function() {};
-
-    if ( docElem.removeEventListener ) {
-      unbind = function( obj, type, fn ) {
-        obj.removeEventListener( type, fn, false );
-      };
-    } else if ( docElem.detachEvent ) {
-      unbind = function( obj, type, fn ) {
-        obj.detachEvent( "on" + type, obj[ type + fn ] );
-        try {
-          delete obj[ type + fn ];
-        } catch ( err ) {
-          // can't delete window object properties
-          obj[ type + fn ] = undefined;
-        }
-      };
-    }
-
-    return {
-      bind: bind,
-      unbind: unbind
-    };
-  })();
-
   // debounce taken from underscore
   const debounce = (func, wait, immediate) => {
     let timeout;
@@ -294,8 +236,7 @@
     offset,
     position,
     getStyle,
-    getCascadedStyle,
-    event
+    getCascadedStyle
   };
 
 })(window);

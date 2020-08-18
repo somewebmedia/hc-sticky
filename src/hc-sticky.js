@@ -9,9 +9,9 @@
  * License: MIT
  */
 
-(function(global, factory) {
-  'use strict';
+ 'use strict';
 
+(function(global, factory) {
   if (typeof module === 'object' && typeof module.exports === 'object') {
     if (global.document) {
       module.exports = factory(global);
@@ -27,7 +27,18 @@
     factory(global);
   }
 })(typeof window !== 'undefined' ? window : this, (window) => {
-  'use strict';
+  const document = window.document;
+
+  let supportsPassive = false;
+  try {
+    const opts = Object.defineProperty({}, 'passive', {
+      get: function() {
+        supportsPassive = {passive: false};
+      }
+    });
+    window.addEventListener('testPassive', null, opts);
+    window.removeEventListener('testPassive', null, opts);
+  } catch (e) {}
 
   const DEFAULT_OPTIONS = {
     top: 0,
@@ -72,7 +83,6 @@
     };
   })();
 
-  const document = window.document;
 
   const hcSticky = function(elem, userSettings = {}) {
     // use querySeletor if string is passed
@@ -549,7 +559,7 @@
     const disableSticky = () => {
       if (scrollAttached) {
         // detach sticky from scroll
-        Helpers.event.unbind(window, 'scroll', runSticky);
+        window.removeEventListener('scroll', runSticky, supportsPassive);
 
         // sticky is not attached to scroll anymore
         scrollAttached = false;
@@ -577,7 +587,7 @@
 
       if (!scrollAttached) {
         // attach sticky to scroll
-        Helpers.event.bind(window, 'scroll', runSticky);
+        window.addEventListener('scroll', runSticky, supportsPassive);
 
         // sticky is attached to scroll
         scrollAttached = true;
@@ -653,7 +663,7 @@
     const Detach = () => {
       // detach resize reinit
       if (resizeAttached) {
-        Helpers.event.unbind(window, 'resize', resize_cb);
+        window.removeEventListener('resize', resize_cb, supportsPassive);
         resizeAttached = false;
       }
 
@@ -668,7 +678,7 @@
     const Attach = () => {
       // attach resize reinit
       if (!resizeAttached) {
-        Helpers.event.bind(window, 'resize', resize_cb);
+        window.addEventListener('resize', resize_cb, supportsPassive);
         resizeAttached = true;
       }
 
@@ -708,7 +718,7 @@
     Attach();
 
     // reinit on complete page load
-    Helpers.event.bind(window, 'load', reinitSticky);
+    window.addEventListener('load', reinitSticky);
   };
 
   // jQuery Plugin
