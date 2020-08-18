@@ -10,6 +10,8 @@ const path = require('path');
 const through = require('through2');
 const browserify = require('gulp-browserify');
 const rename = require('gulp-rename');
+const bump = require('gulp-bump');
+const replace = require('gulp-replace');
 const argv = require('yargs').argv;
 
 const compileJs = () => {
@@ -79,11 +81,11 @@ const bumpPackage = () => {
 const bumpJs = () => {
   const package = require('./package.json');
 
-  return src(['./src/js/*.js'])
+  return src(['./src/*.js'])
     .pipe(replace(/ \* Version: ([\d\.]+)/g, () => {
       return ` * Version: ${package.version}`;
     }))
-    .pipe(dest('./src/js/'))
+    .pipe(dest('./src/'))
 };
 
 const defaultTask = parallel(compileJs, compileDemo, compileDemoBrowserify);
