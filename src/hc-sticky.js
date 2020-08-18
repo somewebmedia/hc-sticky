@@ -1,11 +1,11 @@
-/*!
+/*
  * HC-Sticky
  * =========
- * Version: 2.2.3
+ * Version: 2.2.4
  * Author: Some Web Media
- * Author URL: http://somewebmedia.com
+ * Author URL: https://github.com/somewebmedia
  * Plugin URL: https://github.com/somewebmedia/hc-sticky
- * Description: Cross-browser plugin that makes any element on your page visible while you scroll
+ * Description: JavaScript library that makes any element on your page visible while you scroll
  * License: MIT
  */
 
