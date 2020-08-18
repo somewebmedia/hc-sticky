@@ -1,7 +1,7 @@
 HC-Sticky
 =========
 
-Dependency free javascript library that makes any element on your page visible while you scroll.
+JavaScript library that makes any element on your page visible while you scroll. Dependency free, but lso works as a jQuery plugin.
 Check out the [demos](https://somewebmedia.github.io/hc-sticky).
 
 
@@ -12,26 +12,9 @@ Check out the [demos](https://somewebmedia.github.io/hc-sticky).
 This package can be installed with:
 
 - [npm](https://www.npmjs.com/package/hc-sticky): `npm install --save hc-sticky`
-- [bower](http://bower.io/search/?q=hc-sticky): `bower install --save hc-sticky`
 
 Or download the [latest release](https://github.com/somewebmedia/hc-sticky/releases).
 
-
-### Load
-
-#### Static HTML
-
-```html
-<script src="/path_to/hc-sticky.js"></script>
-```
-
-#### Browserify
-
-In the script, including HC-Sticky will usually look like this:
-
-```js
-const hcSticky = require('hc-sticky');
-```
 
 
 ### Usage
@@ -54,6 +37,15 @@ jQuery(document).ready(function($) {
     stickTo: '#content'
   });
 });
+```
+
+
+#### Browserify
+
+In the script, including HC-Sticky will usually look like this:
+
+```js
+const hcSticky = require('hc-sticky');
 ```
 
 
@@ -127,7 +119,7 @@ $sticky.hcSticky('update', {
 
 This package comes with [Gulp](https://gulpjs.com/). The following tasks are available:
 
-  * `default` compiles the JS into `/dist` and builds the Demos into `demo/build`.
+  * `default` compiles the JS into `/dist` and builds the Demos into `/docs`.
   * `watch` watches source JS and Demo files and builds them automatically whenever you save.
 
 You can pass a `--dev` command if you don't want the compiled JS to be minified.
