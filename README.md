@@ -1,6 +1,8 @@
 HC-Sticky
 =========
 
+[![Version](https://img.shields.io/npm/v/hc-sticky.svg)](https://www.npmjs.com/package/hc-sticky) [![Downloads](https://img.shields.io/npm/dt/hc-sticky.svg)](https://www.npmjs.com/package/hc-sticky)
+
 JavaScript library that makes any element on your page visible while you scroll. Dependency free, but lso works as a jQuery plugin.
 Check out the [demos](https://somewebmedia.github.io/hc-sticky).
 
