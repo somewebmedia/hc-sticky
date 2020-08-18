@@ -1,4 +1,5 @@
-const gulp = require('gulp');
+const { src, dest, parallel, series, watch } = require('gulp');
+const glob = require('glob');
 const sass = require('gulp-sass');
 const autoprefixer = require('gulp-autoprefixer');
 const concat = require('gulp-concat');
@@ -11,8 +12,8 @@ const browserify = require('gulp-browserify');
 const rename = require('gulp-rename');
 const argv = require('yargs').argv;
 
-gulp.task('js', () => {
-  return gulp.src([
+const compileJs = () => {
+  return src([
       './src/hc-sticky.js',
       './src/hc-sticky.helpers.js'
     ])
@@ -34,21 +35,21 @@ gulp.task('js', () => {
         comments: saveLicense
       }
     }))
-    .pipe(gulp.dest('./docs/'))
-    .pipe(gulp.dest('./dist'));
-});
+    .pipe(dest('./docs/')) // demo
+    .pipe(dest('./dist'));
+};
 
-gulp.task('demo', () => {
-  return gulp.src(['./docs/*.scss'])
+const compileDemo = () => {
+  return src(['./docs/*.scss'])
     .pipe(sass({
       'outputStyle': argv.dev ? 'development' : 'compressed'
     }).on('error', sass.logError))
     .pipe(autoprefixer())
-    .pipe(gulp.dest('./docs/'));
-});
+    .pipe(dest('./docs/'));
+};
 
-gulp.task('demo-browserify', () => {
-  return gulp.src(['./docs/browserify.src.js'])
+const compileDemoBrowserify = () => {
+  return src(['./docs/browserify.src.js'])
     .pipe(browserify({
       insertGlobals: true
     }))
@@ -66,12 +67,35 @@ gulp.task('demo-browserify', () => {
     ))
     .pipe(argv.dev ? through.obj() : uglify())
     .pipe(rename('browserify.dist.js'))
-    .pipe(gulp.dest('./docs/'));
-});
+    .pipe(dest('./docs/'));
+};
 
-gulp.task('default', ['js', 'demo', 'demo-browserify'], () => {});
+const bumpPackage = () => {
+  return src('./*.json')
+    .pipe(bump(argv.ver && argv.ver.indexOf('.') > -1 ? {version: argv.ver} : {type: argv.ver || 'patch'}))
+    .pipe(dest('./'));
+};
 
-gulp.task('watch', ['js', 'demo'], () => {
-  gulp.watch(['./src/*.js'], ['js', 'demo-browserify']);
-  gulp.watch(['./docs/*.scss'], ['demo']);
-});
+const bumpJs = () => {
+  const package = require('./package.json');
+
+  return src(['./src/js/*.js'])
+    .pipe(replace(/ \* Version: ([\d\.]+)/g, () => {
+      return ` * Version: ${package.version}`;
+    }))
+    .pipe(dest('./src/js/'))
+};
+
+const defaultTask = parallel(compileJs, compileDemo, compileDemoBrowserify);
+
+const watchFiles = () => {
+  const watch_js = glob.sync('./src/*.js');
+  const watch_demo = glob.sync('./docs/*.scss');
+
+  watch(watch_js, parallel(compileJs, compileDemoBrowserify));
+  watch(watch_demo, compileDemo);
+};
+
+module.exports.default = defaultTask;
+module.exports.watch = series(defaultTask, watchFiles);
+module.exports.bump = series(bumpPackage, bumpJs, compileJs);
