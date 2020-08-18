@@ -19,6 +19,7 @@ const compileJs = () => {
       './src/hc-sticky.js',
       './src/hc-sticky.helpers.js'
     ])
+    .pipe(concat('hc-sticky.js'))
     .pipe(babel(
       {
         presets: [
@@ -31,7 +32,6 @@ const compileJs = () => {
         ]
       }
     ))
-    .pipe(concat('hc-sticky.js'))
     .pipe(argv.dev ? through.obj() : uglify({
       output: {
         comments: saveLicense
