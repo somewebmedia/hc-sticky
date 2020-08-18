@@ -445,10 +445,14 @@ body.demo {
 
 // Demo 3
 
-.demo_3 {
+body.demo_3 {
 
   article {
     padding: 0;
+
+    @media screen and (min-width: 980px) {
+      padding-right: 40px;
+    }
 
     &:nth-child(1) {
       background: #c15134;
