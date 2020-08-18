@@ -56,11 +56,7 @@
     onBeforeResize: null,
     onResize: null,
     resizeDebounce: 100,
-    disable: false,
-
-    // deprecated
-    queries: null,
-    queryFlow: 'down'
+    disable: false
   };
 
   const deprecated = (() => {
@@ -83,17 +79,16 @@
     };
   })();
 
+  const hcSticky = function(elem, userSettings) {
+    userSettings = userSettings || {};
 
-  const hcSticky = function(elem, userSettings = {}) {
     // use querySeletor if string is passed
     if (typeof elem === 'string') {
       elem = document.querySelector(elem);
     }
 
     // check if element exist
-    if (!elem) {
-      return false;
-    }
+    if (!elem) return false;
 
     if (userSettings.queries) {
       deprecated('queries', 'responsive', 'option');
@@ -112,7 +107,9 @@
       elemParent.style.position = 'relative';
     }
 
-    const setOptions = (options = {}) => {
+    const setOptions = (options) => {
+      options = options || {};
+
       if (Helpers.isEmptyObject(options) && !Helpers.isEmptyObject(STICKY_OPTIONS)) {
         // nothing to set
         return;
@@ -217,7 +214,9 @@
     const Sticky = {
       css: {},
       position: null, // so we don't need to check css all the time
-      stick: (args = {}) => {
+      stick: (args) => {
+        args = args || {};
+
         // check if element is already sticky
         if (Helpers.hasClass(elem, STICKY_OPTIONS.stickyClass)) {
           return;
@@ -261,7 +260,8 @@
           STICKY_OPTIONS.onStart.call(elem, Object.assign({}, STICKY_OPTIONS));
         }
       },
-      release: (args = {}) => {
+      release: (args) => {
+        args = args || {};
         args.stop = args.stop || false;
 
         // check if we've already done this
