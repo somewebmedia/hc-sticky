@@ -26,7 +26,9 @@ const compileJs = () => {
           [
             '@babel/preset-env',
             {
-              modules: false
+              modules: false,
+              loose: true,
+              exclude: ['transform-typeof-symbol']
             }
           ]
         ]
