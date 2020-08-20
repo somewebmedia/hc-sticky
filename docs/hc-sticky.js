@@ -1,7 +1,7 @@
 /*
  * HC-Sticky
  * =========
- * Version: 2.2.5
+ * Version: 2.2.6
  * Author: Some Web Media
  * Author URL: https://github.com/somewebmedia
  * Plugin URL: https://github.com/somewebmedia/hc-sticky

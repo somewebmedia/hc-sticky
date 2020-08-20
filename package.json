@@ -1,6 +1,6 @@
 {
   "name": "hc-sticky",
-  "version": "2.2.5",
+  "version": "2.2.6",
   "description": "JavaScript library that makes any element on your page visible while you scroll",
   "homepage": "http://somewebmedia.com/hc-sticky",
   "main": "dist/hc-sticky.js",
@@ -21,8 +21,8 @@
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^6.1.0",
     "gulp-babel": "^8.0.0",
-    "gulp-bump": "^3.2.0",
     "gulp-browserify": "^0.5.1",
+    "gulp-bump": "^3.2.0",
     "gulp-concat": "^2.6.1",
     "gulp-rename": "^1.4.0",
     "gulp-replace": "^1.0.0",
