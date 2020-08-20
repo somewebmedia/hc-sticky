@@ -42,13 +42,17 @@ jQuery(document).ready(function($) {
 ```
 
 
-#### Browserify
+#### Webpack/Browserify
 
 In the script, including HC-Sticky will usually look like this:
 
 ```js
 const hcSticky = require('hc-sticky');
 ```
+
+#### AMD (Asynchronous Module Definition)
+
+If using AMD, the module will be automatically defined as `hcSticky`.
 
 
 ## Options
