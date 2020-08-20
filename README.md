@@ -34,6 +34,12 @@ In the script, including HC-Sticky will usually look like this:
 const hcSticky = require('hc-sticky');
 ```
 
+#### Babel
+
+```js
+import hcSticky from 'hc-sticky';
+```
+
 #### AMD (Asynchronous Module Definition)
 
 If using AMD, the module will be automatically defined as `hcSticky`.
