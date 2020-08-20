@@ -19,28 +19,12 @@ Or download the [latest release](https://github.com/somewebmedia/hc-sticky/relea
 
 
 
-### Usage
+### Including HC-Sticky
 
-Be sure to call HC-Sticky once your element is available in the DOM.
-
-#### Vanilla JS
-
-```js
-var Sticky = new hcSticky('#element', {
-  stickTo: '#content'
-});
+#### Script tag
+```html
+<script src="/path/to/hc-sticky.js"></script>
 ```
-
-#### jQuery
-
-```js
-jQuery(document).ready(function($) {
-  $('#element').hcSticky({
-    stickTo: '#content'
-  });
-});
-```
-
 
 #### Webpack/Browserify
 
@@ -53,6 +37,35 @@ const hcSticky = require('hc-sticky');
 #### AMD (Asynchronous Module Definition)
 
 If using AMD, the module will be automatically defined as `hcSticky`.
+
+
+### Usage
+
+Be sure to call HC-Sticky once your element is available in the DOM.
+
+#### Vanilla JS
+
+```js
+document.addEventListener('DOMContentLoaded', function() {
+
+  var Sticky = new hcSticky('#element', {
+    stickTo: '#content'
+  });
+
+});
+```
+
+#### jQuery
+
+```js
+jQuery(document).ready(function($) {
+
+  $('#element').hcSticky({
+    stickTo: '#content'
+  });
+
+});
+```
 
 
 ## Options
