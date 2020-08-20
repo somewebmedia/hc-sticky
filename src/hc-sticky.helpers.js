@@ -72,6 +72,17 @@
     };
   }
 
+  let supportsPassive = false;
+  try {
+    const opts = Object.defineProperty({}, 'passive', {
+      get: function() {
+        supportsPassive = {passive: false};
+      }
+    });
+    window.addEventListener('testPassive', null, opts);
+    window.removeEventListener('testPassive', null, opts);
+  } catch (e) {}
+
   // debounce taken from underscore
   const debounce = (func, wait, immediate) => {
     let timeout;
@@ -230,6 +241,7 @@
   };
 
   hcSticky.Helpers = {
+    supportsPassive,
     isEmptyObject,
     debounce,
     hasClass,
