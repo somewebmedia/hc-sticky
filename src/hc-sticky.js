@@ -397,9 +397,7 @@
       container = STICKY_OPTIONS.stickTo
         ? stickTo_document
           ? document
-          : typeof STICKY_OPTIONS.stickTo === 'string'
-            ? document.querySelector(STICKY_OPTIONS.stickTo)
-            : STICKY_OPTIONS.stickTo
+          : Helpers.getElement(STICKY_OPTIONS.stickTo)
         : elemParent;
 
       // get sticky height
@@ -435,11 +433,7 @@
       sticky_offsetTop = elem.offsetTop - (parseInt(Sticky.css.marginTop) || 0);
 
       // get inner sticker element
-      inner_sticker = STICKY_OPTIONS.innerSticker
-        ? typeof STICKY_OPTIONS.innerSticker === 'string'
-          ? document.querySelector(STICKY_OPTIONS.innerSticker)
-          : STICKY_OPTIONS.innerSticker
-        : null;
+      inner_sticker = Helpers.getElement(STICKY_OPTIONS.innerSticker);
 
       // top
       options_top = isNaN(STICKY_OPTIONS.top) && STICKY_OPTIONS.top.indexOf('%') > -1

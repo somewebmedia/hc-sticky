@@ -83,6 +83,22 @@
     window.removeEventListener('testPassive', null, opts);
   } catch (e) {}
 
+  const getElement = (el) => {
+    let node = null;
+
+    if (typeof el === 'string') {
+      node = document.querySelector(el);
+    }
+    else if (window.jQuery && el instanceof window.jQuery && el.length) {
+      node = el[0];
+    }
+    else if (el instanceof Element) {
+      node = el;
+    }
+
+    return node;
+  };
+
   // debounce taken from underscore
   const debounce = (func, wait, immediate) => {
     let timeout;
@@ -247,6 +263,7 @@
     hasClass,
     offset,
     position,
+    getElement,
     getStyle,
     getCascadedStyle
   };
