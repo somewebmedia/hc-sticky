@@ -67,11 +67,13 @@ document.addEventListener('DOMContentLoaded', function() {
 jQuery(document).ready(function($) {
 
   $('#element').hcSticky({
-    stickTo: '#content'
+    stickTo: $('#content')[0]
   });
 
 });
 ```
+
+For HC-Sticky to work as a jQuery plugin, jQuery has to be a property of global `window` object, so be careful when using it in compbination with Babel/Webpack/Browserify and jQuery.
 
 
 ## Options
