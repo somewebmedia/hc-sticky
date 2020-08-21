@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function() {
 jQuery(document).ready(function($) {
 
   $('#element').hcSticky({
-    stickTo: $('#content')[0]
+    stickTo: $('#content')
   });
 
 });
