@@ -29,7 +29,7 @@
     "gulp-sass": "^4.1.0",
     "gulp-uglify": "^3.0.2",
     "uglify-save-license": "^0.4.1",
-    "yargs": "^15.4.1"
+    "yargs": "^17.0.1"
   },
   "keywords": [
     "sticky",
