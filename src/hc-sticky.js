@@ -9,8 +9,6 @@
  * License: MIT
  */
 
-'use strict';
-
 ( function( global, factory ) {
   if ( typeof module === 'object' && typeof module.exports === 'object' ) {
     if ( global.document ) {

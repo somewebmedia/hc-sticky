@@ -1,6 +1,4 @@
 ( ( window ) => {
-  'use strict';
-
   const hcSticky = window.hcSticky;
 
   const getElement = ( el ) => {
