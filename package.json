@@ -1,6 +1,6 @@
 {
   "name": "hc-sticky",
-  "version": "2.2.7",
+  "version": "2.3.0",
   "description": "JavaScript library that makes any element on your page visible while you scroll",
   "homepage": "http://somewebmedia.com/hc-sticky",
   "main": "dist/hc-sticky.js",
@@ -13,7 +13,6 @@
     "type": "git",
     "url": "git+https://github.com/somewebmedia/hc-sticky.git"
   },
-  "dependencies": {},
   "devDependencies": {
     "@babel/cli": "^7.24.0",
     "@babel/core": "^7.24.0",
