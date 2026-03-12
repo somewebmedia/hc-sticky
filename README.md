@@ -31,7 +31,7 @@ Or download the [latest release](https://github.com/somewebmedia/hc-sticky/relea
 In the script, including HC-Sticky will usually look like this:
 
 ```js
-const hcSticky = require('hc-sticky');
+const hcSticky = require( 'hc-sticky' );
 ```
 
 #### Babel
@@ -52,25 +52,25 @@ Be sure to call HC-Sticky once your element is available in the DOM.
 #### Vanilla JS
 
 ```js
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener( 'DOMContentLoaded', function() {
 
-  var Sticky = new hcSticky('#element', {
+  var Sticky = new hcSticky( '#element', {
     stickTo: '#content'
-  });
+  } );
 
-});
+} );
 ```
 
 #### jQuery
 
 ```js
-jQuery(document).ready(function($) {
+jQuery( document ).ready( function( $ ) {
 
-  $('#element').hcSticky({
-    stickTo: $('#content')
-  });
+  $( '#element' ).hcSticky( {
+    stickTo: $( '#content' )
+  } );
 
-});
+} );
 ```
 
 For HC-Sticky to work as a jQuery plugin, jQuery has to be a property of global `window` object, so be careful when using it in compbination with Babel/Webpack/Browserify and jQuery.
@@ -118,27 +118,27 @@ Methods are used to control the plugin after initialization.
 #### Vanilla JS
 
 ```js
-var Sticky = new hcSticky('#element', {
+var Sticky = new hcSticky( '#element', {
   stickTo: '#content'
-});
+} );
 
-Sticky.update({
+Sticky.update( {
   top: 20
-});
+} );
 ```
 
 #### jQuery
 
 ```js
-var $sticky = $('#element');
+var $sticky = $( '#element' );
 
-$sticky.hcSticky({
+$sticky.hcSticky( {
   stickTo: '#content'
-});
+} );
 
-$sticky.hcSticky('update', {
+$sticky.hcSticky( 'update', {
   top: 20
-});
+} );
 ```
 
 
